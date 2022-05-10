@@ -319,7 +319,7 @@ function RemoveEventHandler(eventData)
 end
 
 local ignoreNetEvent = {
-	['__cfx_internal:commandFallback'] = true,
+	'__cfx_internal:commandFallback'
 }
 
 function RegisterNetEvent(eventName, cb)
@@ -968,8 +968,7 @@ local function GetEntityStateBagId(entityGuid)
 	end
 end
 
-local entityMT
-entityMT = {
+local entityTM = {
 	__index = function(t, s)
 		if s == 'state' then
 			local es = GetEntityStateBagId(t.__data)
@@ -999,14 +998,13 @@ entityMT = {
 		
 		return setmetatable({
 			__data = ref
-		}, entityMT)
+		}, entityTM)
 	end
 }
 
-msgpack.extend(entityMT)
+msgpack.extend(entityTM)
 
-local playerMT
-playerMT = {
+local playerTM = {
 	__index = function(t, s)
 		if s == 'state' then
 			local pid = t.__data
@@ -1038,17 +1036,17 @@ playerMT = {
 		
 		return setmetatable({
 			__data = ref
-		}, playerMT)
+		}, playerTM)
 	end
 }
 
-msgpack.extend(playerMT)
+msgpack.extend(playerTM)
 
 function Entity(ent)
 	if type(ent) == 'number' then
 		return setmetatable({
 			__data = ent
-		}, entityMT)
+		}, entityTM)
 	end
 	
 	return ent
@@ -1058,7 +1056,7 @@ function Player(ent)
 	if type(ent) == 'number' or type(ent) == 'string' then
 		return setmetatable({
 			__data = tonumber(ent)
-		}, playerMT)
+		}, playerTM)
 	end
 	
 	return ent

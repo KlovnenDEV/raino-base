@@ -594,8 +594,7 @@ const EXT_LOCALFUNCREF = 11;
 
 			set(_, k, v) {
 				const payload = msgpack_pack(v);
-				SetStateBagValue(es, k, payload, payload.length, isDuplicityVersion);
-				return true; // If the set() method returns false, and the assignment happened in strict-mode code, a TypeError will be thrown.
+				return SetStateBagValue(es, k, payload, payload.length, isDuplicityVersion);
 			},
 		});
 	};
