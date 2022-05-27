@@ -11,12 +11,12 @@ local EVENTS = {
     LOCKERS = 1,
     CLOTHING = 2,
     SWITCHER = 3,
-	ARMORY = 4,
+	  ARMORY = 4,
 }
 
 local zoneData = {
 	pillbox_checkin = {
-		promptText = "[E] Consultar ($200)"
+		promptText = "[E] Check ($200)"
 	},
 	pillbox_armory = {
 		promptText = "[E] Arsenal"
@@ -77,7 +77,7 @@ local zoneData = {
 			},
 			{
 				title = "Armory",
-				description = "Equipaments",
+				description = "Equipment",
 				action = "caue-healthcare:handler",
 				params = EVENTS.ARMORY
 			},

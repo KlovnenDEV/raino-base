@@ -1,7 +1,7 @@
 VehiclesConfig = {
     {
         ["Job"] = "ems",
-        ["Label"] = "Veiculos EMS",
+        ["Label"] = "EMS Vehicles",
         ["Spawn"] = vector4(337.15, -579.9, 28.8, 337.03),
         ["Garage"] = "Hospital",
 
