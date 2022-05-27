@@ -68,7 +68,7 @@ Citizen.CreateThread(function()
     exports["caue-eye"]:AddPeekEntryByFlag({ "isNPC" }, {
         {
             id = "bennys_sign",
-            label = "Entrar/Sair de serviço",
+            label = "Enter/Exit Service",
             icon = "pager",
             event = "caue-mechanic:sign",
         }
@@ -77,7 +77,7 @@ Citizen.CreateThread(function()
     exports["caue-eye"]:AddPeekEntryByFlag({ "isNPC" }, {
         {
             id = "bennys_shop",
-            label = "Peças de Veiculo",
+            label = "Vehicle Parts",
             icon = "tools",
             event = "caue-npcs:ped:keeper",
             parameters = { "321" }
