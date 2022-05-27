@@ -35,12 +35,12 @@ AddEventHandler("caue-youngboys:stationPrompt", function(pParameters, pEntity, p
         local input = exports["caue-input"]:showInput({
             {
                 icon = "dollar-sign",
-                label = "Valor",
+                label = "Cost",
                 name = "cost",
             },
             {
                 icon = "pencil-alt",
-                label = "Comentario",
+                label = "Comment",
                 name = "comment",
             },
         })
