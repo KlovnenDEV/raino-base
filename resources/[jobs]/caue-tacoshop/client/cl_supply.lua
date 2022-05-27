@@ -8,7 +8,7 @@ local rusticosotemideiasmerdasesseserverezap = 0
 local deliveryBlip = 0
 
 local deliveryLocations = {
-	{ ["pos"] = vector4(26.21, -1338.9, 29.5, 159.69), ["name"] = "Innocence Boulevard Loja de Convêniencia" },
+	  { ["pos"] = vector4(26.21, -1338.9, 29.5, 159.69), ["name"] = "Innocence Boulevard Loja de Convêniencia" },
     { ["pos"] = vector4(-40.96, -1751.23, 29.43, 356.24), ["name"] = "Grove Street Loja de Convêniencia" },
     { ["pos"] = vector4(289.44, -1266.91, 29.45, 267.94), ["name"] = "Crusade Road Loja de Convêniencia" },
     { ["pos"] = vector4(1211.3, -1389.02, 35.38, 359.86), ["name"] = "El Burro Loja de Convêniencia" },
@@ -40,16 +40,16 @@ AddEventHandler("caue-tacoshop:supplyStart", function()
 
     CreateBlip(location)
 
-    TriggerEvent("DoLongHudText", "Entregue essa caixa de suprimentos em " .. location.name .. ", não se atrase!!")
+    TriggerEvent("DoLongHudText", "Deliver this supply box at " .. location.name .. ", do not be late!!")
 
     while true do
 		Citizen.Wait(1)
 
-        local plyCoords = GetEntityCoords(PlayerPedId())
+    local plyCoords = GetEntityCoords(PlayerPedId())
 		local distance = #(plyCoords - location["pos"]["xyz"])
 
 		if distance < 25.0 then
-			ShowFloatingHelpNotification("~INPUT_FRONTEND_RB~ Ponto de entrega", location["pos"]["xyz"])
+			ShowFloatingHelpNotification("~INPUT_FRONTEND_RB~ Delivery point", location["pos"]["xyz"])
 
 			if IsControlJustReleased(0, 38) and distance < 2.0 then
 				break
@@ -97,7 +97,7 @@ AddEventHandler("caue-tacoshop:supplyEnd", function()
 
     DeleteBlip()
 
-    TriggerEvent("DoLongHudText", "Volte e pegue mais suprimentos para a loja")
+    TriggerEvent("DoLongHudText", "Go back and get more supplies for the store")
 end)
 
 --[[
