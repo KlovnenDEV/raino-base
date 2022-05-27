@@ -193,7 +193,7 @@ Citizen.CreateThread(function()
         id = "tacoshop_foods1",
         icon = "hamburger",
         label = "Cook",
-        parameters = { stationId = 1 }
+        parameters = { stationId = 1 } , { stationId = 2}
     }}, { distance = { radius = 3.5 } , isEnabled = isChargeActive })
 
     exports["caue-polytarget"]:AddBoxZone("caue-tacoshop:drinks1", vector3(418.85, -1917.76, 25.47), 0.45, 0.7, {
