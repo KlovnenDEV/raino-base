@@ -835,14 +835,14 @@ end)
 AddEventHandler("caue-tacoshop:deliveryEnd", function()
     rusticosotemideiasmerdasesseserverezap = 0
 
-    local deliveryItens = exports["caue-inventory"]:getQuantity("delivery_taco")
-    if deliveryItens > 0 then
-        TriggerEvent("inventory:removeItem", "delivery_taco", deliveryItens)
+    local deliveryitems = exports["caue-inventory"]:getQuantity("delivery_taco")
+    if deliveryitems > 0 then
+        TriggerEvent("inventory:removeItem", "delivery_taco", deliveryitems)
     end
 
     DeleteBlip()
 
-    TriggerEvent("DoLongHudText", "Entregas encerradas")
+    TriggerEvent("DoLongHudText", "Deliveries closed")
 end)
 
 --[[
@@ -862,7 +862,7 @@ Citizen.CreateThread(function()
         event = "caue-tacoshop:deliveryStation",
         id = "tacoshop_deliveryStart",
         icon = "motorcycle",
-        label = "Iniciar Entregas",
+        label = "Start Deliveries",
         parameters = { stationId = 1 }
     }}, { distance = { radius = 3.5 }, isEnabled = function() return rusticosotemideiasmerdasesseserverezap == 0 end })
 
@@ -870,7 +870,7 @@ Citizen.CreateThread(function()
         event = "caue-tacoshop:deliveryStation",
         id = "tacoshop_deliveryStop",
         icon = "motorcycle",
-        label = "Cancelar Entregas",
+        label = "Stop Deliveries",
         parameters = { stationId = 2 }
     }}, { distance = { radius = 3.5 }, isEnabled = function() return rusticosotemideiasmerdasesseserverezap > 0 end })
 end)

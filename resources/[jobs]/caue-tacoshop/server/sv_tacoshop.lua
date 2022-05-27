@@ -48,7 +48,7 @@ AddEventHandler("caue-tacoshop:completePurchase", function(pParams)
 
     local bank = exports["caue-financials"]:getBalance(accountId)
     if bank < pParams.cost then
-        TriggerClientEvent("DoLongHudText", src, "Você não tem $" .. pParams.cost .. " na sua conta.", 2)
+        TriggerClientEvent("DoLongHudText", src, "You don't have $" .. pParams.cost .. " in your account.", 2)
         return
     end
 
@@ -63,7 +63,7 @@ AddEventHandler("caue-tacoshop:completePurchase", function(pParams)
 
     local buyer = exports["caue-base"]:getChar(src, "first_name") .. " " .. exports["caue-base"]:getChar(src, "last_name")
     local seller = exports["caue-base"]:getChar(pParams.charger, "first_name") .. " " .. exports["caue-base"]:getChar(pParams.charger, "last_name")
-    exports["caue-groups"]:groupLog("taco_shop", "Sell", seller .. " | $" .. pParams.cost .. " | " .. pParams.comment)
+    exports["caue-groups"]:groupLog("taco_shop", "Sold", seller .. " | $" .. pParams.cost .. " | " .. pParams.comment)
 
-    TriggerClientEvent("DoLongHudText", pParams.charger, buyer .. " payed $" .. pParams.cost)
+    TriggerClientEvent("DoLongHudText", pParams.charger, buyer .. " Paid $" .. pParams.cost)
 end)
