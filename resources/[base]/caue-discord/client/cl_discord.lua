@@ -10,11 +10,11 @@ Citizen.CreateThread(function()
         end
 
         SetDiscordRichPresenceAsset("asset")
-        SetDiscordRichPresenceAssetText("https://cauedev.github.io/")
+        SetDiscordRichPresenceAssetText("https://aymen-jelassi.github.io/")
         SetDiscordRichPresenceAssetSmall("asset")
-        SetDiscordRichPresenceAssetSmallText("https://cauedev.github.io/")
-        SetDiscordRichPresenceAction(0, "Discord", "https://discord.gg/discord")
-        SetDiscordRichPresenceAction(1, "Forum", "https://cauedev.github.io/")
+        SetDiscordRichPresenceAssetSmallText("https://aymen-jelassi.github.io/")
+        SetDiscordRichPresenceAction(0, "Discord", "https://discord.gg/jlonn")
+        SetDiscordRichPresenceAction(1, "Forum", "https://aymen-jelassi.github.io/")
 
 		Citizen.Wait(60000)
 	end
