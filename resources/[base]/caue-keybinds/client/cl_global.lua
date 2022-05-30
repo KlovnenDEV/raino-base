@@ -1,4 +1,4 @@
--- Binds that are used globaly and do not fit in a single resouce
+-- Binds that are used globaly and do not fit in a single resource
 -- All Binds should use the event name and bool
 
 Citizen.CreateThread(function()
