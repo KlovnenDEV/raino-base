@@ -35,7 +35,7 @@ function setCallsign(cid, job, callsign)
         { callsign, exist })
 
         if not affectedRows or affectedRows < 1 then
-            return false, "Database update eror"
+			return false, "Database update erorr"
         end
 
         return true, "Callsign updated"
