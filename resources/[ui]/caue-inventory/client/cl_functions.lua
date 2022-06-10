@@ -126,42 +126,42 @@ AddEventHandler("caue-inventory:lockpick", function(isForced, inventoryName, slo
 
         if #(GetEntityCoords(targetVehicle) - GetEntityCoords(PlayerPedId())) < 10.0 and targetVehicle ~= 0 and GetEntitySpeed(targetVehicle) < 5.0 then
             SetVehicleDoorsLocked(targetVehicle, 1)
-            TriggerEvent("DoLongHudText", "Veículo destrancado.")
-            TriggerEvent("InteractSound_CL:PlayOnOne", "unlock", 0.1)
+			TriggerEvent("DoLongHudText", "Vehicle unlocked.")
+			TriggerEvent("InteractSound_CL:PlayOnOne", "unlock", 0.1)
         end
     else
         if targetVehicle ~= 0 and not isForced then
-            if exports["caue-vehicles"]:HasVehicleKey(targetVehicle) then
-                lockpicking = false
-                return
-            end
+			if exports["caue-vehicles"]:HasVehicleKey(targetVehicle) then
+				lockpicking = false
+				return
+			end
 
-            TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lockpick", 0.4)
+			TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lockpick", 0.4)
 
-            local triggerAlarm = GetVehicleDoorLockStatus(targetVehicle) > 1
-            if triggerAlarm then
-                SetVehicleAlarm(targetVehicle, true)
-                StartVehicleAlarm(targetVehicle)
-            end
+			local triggerAlarm = GetVehicleDoorLockStatus(targetVehicle) > 1
+			if triggerAlarm then
+				SetVehicleAlarm(targetVehicle, true)
+				StartVehicleAlarm(targetVehicle)
+			end
 
-            SetVehicleHasBeenOwnedByPlayer(targetVehicle, true)
+			SetVehicleHasBeenOwnedByPlayer(targetVehicle, true)
 
-            TriggerEvent("animation:lockpickinvtest")
-            TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lockpick", 0.4)
+			TriggerEvent("animation:lockpickinvtest")
+			TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lockpick", 0.4)
 
-            TriggerEvent("civilian:alertPolice", 12.0, "lockpick", targetVehicle)
+			TriggerEvent("civilian:alertPolice", 12.0, "lockpick", targetVehicle)
 
-            local p = promise:new()
+			local p = promise:new()
 
-            exports["caue-vehicles"]:HotwireVehicle(function(result)
-                p:resolve(result)
-            end)
+			exports["caue-vehicles"]:HotwireVehicle(function(result)
+				p:resolve(result)
+			end)
 
-            local result = Citizen.Await(p)
+			local result = Citizen.Await(p)
 
             if not result.success then
                 if result.stage >= 2 then
-                    TriggerEvent("DoLongHudText", "A lockpick está um pouco torta.", 2)
+					TriggerEvent("DoLongHudText", "The lockpick is a little crooked.", 2)
                     TriggerEvent("inventory:removeItem", "lockpick", 1)
                     lockpicking = false
                     return

@@ -176,7 +176,7 @@ AddEventHandler("caue-tvbox:volume", function(pArgs, pEntity)
     if input["volume"] then
         local volume = tonumber(input["volume"])
         if not volume or volume < 0 or volume > 10 then
-            TriggerEvent("DoLongHudText", "Valor invalido", 2)
+			TriggerEvent("DoLongHudText", "Invalid value", 2)
             return
         end
 

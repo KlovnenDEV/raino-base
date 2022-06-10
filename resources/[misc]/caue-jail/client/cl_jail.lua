@@ -189,9 +189,9 @@ function leavePrison()
         SetEntityCoords(PlayerPedId(), 1839.91, 2590.03, 46.02)
         SetEntityHeading(PlayerPedId(), 178.63)
     elseif jailTime == -1 then
-        TriggerEvent("DoLongHudText", "Você não está preso?", 2)
+        TriggerEvent("DoLongHudText", "Are you not under arrest?", 2)
     else
-        TriggerEvent("DoLongHudText", "Sua sentença ainda não acabou!", 2)
+        TriggerEvent("DoLongHudText", "Your sentence is not over yet!", 2)
     end
 end
 
@@ -265,12 +265,12 @@ AddEventHandler("caue-jail:sendToJail", function(pParams, pEntity, pContext)
 	if input["time"] then
 		local time = tonumber(input["time"])
 		if not time or time < 1 then
-			TriggerEvent("DoLongHudText", "Número inválido", 2)
+			TriggerEvent("DoLongHudText", "Invalid number", 2)
 			return
 		end
 
         if not IsNearPlayer(pEntity) then
-            TriggerEvent("DoLongHudText", "Você não está próximo do player!", 2)
+            TriggerEvent("DoLongHudText", "You are not close to the player!", 2)
             return
         end
 

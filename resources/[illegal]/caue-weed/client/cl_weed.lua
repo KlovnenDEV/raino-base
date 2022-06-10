@@ -188,152 +188,212 @@ AddEventHandler("caue-inventory:itemUsed", function(item)
                     end
                 end
                 if not foundHash then
-                    TriggerEvent("DoLongHudText", "Eu preciso achar um solo melhor para conseguir plantar.", 2)
+					TriggerEvent("DoLongHudText", "I need to find better soil to plant.", 2)
                 end
             end
         else
-            TriggerEvent("DoLongHudText", "Eu preciso achar uma area melhor para conseguir plantar.", 2)
+			TriggerEvent("DoLongHudText", "I need to find a better area to plant.", 2)
         end
     end
 end)
 
-RegisterNetEvent("caue-weed:trigger_zone", function (type, pData)
-    --New plant being added
-    if type == 1 then
-        addPlant(pData)
-    end
+RegisterNetEvent("caue-weed:trigger_zone", function(type, pData)
+	--New plant being added
+	if type == 1 then
+		addPlant(pData)
+	end
 
-    --Plant being harvested/updated
-    if type == 2 then
-        weedPlants[pData.id] = pData
+	--Plant being harvested/updated
+	if type == 2 then
+		weedPlants[pData.id] = pData
 
-        if activeZones[pData.id] ~= nil then
-            local plantGrowth = getPlantGrowthPercent(pData)
-            local curStage = getStageFromPercent(plantGrowth)
-            local object = createWeedStageAtCoords(curStage, pData.coords)
-            DeleteObject(activeZones[pData.id])
-            activeZones[pData.id] = object
-        end
-    end
+		if activeZones[pData.id] ~= nil then
+			local plantGrowth = getPlantGrowthPercent(pData)
+			local curStage = getStageFromPercent(plantGrowth)
+			local object = createWeedStageAtCoords(curStage, pData.coords)
+			DeleteObject(activeZones[pData.id])
+			activeZones[pData.id] = object
+		end
+	end
 
-    --Plant being removed
-    if type == 3 then
-        if activeZones[pData.id] ~= nil then
-            DeleteObject(activeZones[pData.id])
-            activeZones[pData.id] = nil
-        end
+	--Plant being removed
+	if type == 3 then
+		if activeZones[pData.id] ~= nil then
+			DeleteObject(activeZones[pData.id])
+			activeZones[pData.id] = nil
+		end
 
-        weedPlants[pData.id] = nil
-    end
+		weedPlants[pData.id] = nil
+	end
 end)
 
 AddEventHandler("caue-weed:checkPlant", function(pContext, pEntity)
-    local plantId = false
+	local plantId = false
 
-    for id, plant in pairs(activeZones) do
-        if pEntity == plant then
-            plantId = id
-            break
-        end
-    end
+	for id, plant in pairs(activeZones) do
+		if pEntity == plant then
+			plantId = id
+			break
+		end
+	end
 
-    if not plantId then return end
+	if not plantId then
+		return
+	end
 
-    showPlantMenu(plantId)
+	showPlantMenu(plantId)
 end)
 
-AddEventHandler("caue-weed:addWater", function (pParams)
-    if not exports["caue-inventory"]:hasEnoughOfItem("water", 1, true, true) then return end
+AddEventHandler("caue-weed:addWater", function(pParams)
+	if not exports["caue-inventory"]:hasEnoughOfItem("water", 1, true, true) then
+		return
+	end
 
-    playPourAnimation()
-    local finished = exports["caue-taskbar"]:taskBar(2000, "Adicionando Agua", false, true, false, false, nil, 5.0, PlayerPedId())
-    ClearPedTasks(PlayerPedId())
-    if finished == 100 then
-        local success = RPC.execute("caue-weed:addWater", pParams.id)
-        if not success then
-            TriggerEvent("DoLongHudText", "[ERRO]: Não foi possivel adicionar agua.", 2)
-        else
-            TriggerEvent("inventory:removeItem", "water", 1)
-        end
-    end
-    showPlantMenu(pParams.id)
+	playPourAnimation()
+	local finished = exports["caue-taskbar"]:taskBar(
+		2000,
+		"Adicionando Agua",
+		false,
+		true,
+		false,
+		false,
+		nil,
+		5.0,
+		PlayerPedId()
+	)
+	ClearPedTasks(PlayerPedId())
+	if finished == 100 then
+		local success = RPC.execute("caue-weed:addWater", pParams.id)
+		if not success then
+			TriggerEvent("DoLongHudText", "[ERROR]: Could not add water.", 2)
+		else
+			TriggerEvent("inventory:removeItem", "water", 1)
+		end
+	end
+	showPlantMenu(pParams.id)
 end)
 
-AddEventHandler("caue-weed:addFertilizer", function (pParams)
-    if not exports["caue-inventory"]:hasEnoughOfItem("fertilizer", 1, true, true) then return end
+AddEventHandler("caue-weed:addFertilizer", function(pParams)
+	if not exports["caue-inventory"]:hasEnoughOfItem("fertilizer", 1, true, true) then
+		return
+	end
 
-    playPourAnimation()
-    local finished = exports["caue-taskbar"]:taskBar(2000, "Adicionando Fertilizante", false, true, false, false, nil, 5.0, PlayerPedId())
-    ClearPedTasks(PlayerPedId())
-    if finished == 100 then
-        local success = RPC.execute("caue-weed:addFertilizer", pParams.id, pParams.type)
-        if not success then
-            TriggerEvent("DoLongHudText", "[ERRO]: Não foi possivel adicionar fertilizante.")
-        else
-            TriggerEvent("inventory:removeItem", "fertilizer", 1)
-        end
-    end
-    showPlantMenu(pParams.id)
+	playPourAnimation()
+	local finished = exports["caue-taskbar"]:taskBar(
+		2000,
+		"Adicionando Fertilizante",
+		false,
+		true,
+		false,
+		false,
+		nil,
+		5.0,
+		PlayerPedId()
+	)
+	ClearPedTasks(PlayerPedId())
+	if finished == 100 then
+		local success = RPC.execute("caue-weed:addFertilizer", pParams.id, pParams.type)
+		if not success then
+			TriggerEvent("DoLongHudText", "[ERROR]: Unable to add fertilizer.")
+		else
+			TriggerEvent("inventory:removeItem", "fertilizer", 1)
+		end
+	end
+	showPlantMenu(pParams.id)
 end)
 
-AddEventHandler("caue-weed:addMaleSeed", function (pParams)
-    if not exports["caue-inventory"]:hasEnoughOfItem("maleseed", 1, true, true) then return end
+AddEventHandler("caue-weed:addMaleSeed", function(pParams)
+	if not exports["caue-inventory"]:hasEnoughOfItem("maleseed", 1, true, true) then
+		return
+	end
 
-    TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_GARDENER_PLANT", 0, true)
-    local finished = exports["caue-taskbar"]:taskBar(3000, "Adicionando Semente Macho", false, true, false, false, nil, 5.0, PlayerPedId())
-    ClearPedTasks(PlayerPedId())
-    if finished == 100 then
-        RPC.execute("caue-weed:addMaleSeed", pParams.id)
-        TriggerEvent("inventory:removeItem", "maleseed", 1)
-    end
-    showPlantMenu(pParams.id)
+	TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_GARDENER_PLANT", 0, true)
+	local finished = exports["caue-taskbar"]:taskBar(
+		3000,
+		"Adicionando Semente Macho",
+		false,
+		true,
+		false,
+		false,
+		nil,
+		5.0,
+		PlayerPedId()
+	)
+	ClearPedTasks(PlayerPedId())
+	if finished == 100 then
+		RPC.execute("caue-weed:addMaleSeed", pParams.id)
+		TriggerEvent("inventory:removeItem", "maleseed", 1)
+	end
+	showPlantMenu(pParams.id)
 end)
 
-AddEventHandler("caue-weed:removePlant", function (pParams)
-    TriggerEvent("animation:PlayAnimation","layspike")
-    local finished = exports["caue-taskbar"]:taskBar(3000, "Removendo", false, true, false, false, nil, 5.0, PlayerPedId())
-    ClearPedTasks(PlayerPedId())
-    if finished == 100 then
-        local getFertilizer = getPlantGrowthPercent(weedPlants[pParams.id]) > 20.0
-        local success = RPC.execute("caue-weed:removePlant", pParams.id, getFertilizer)
-        if not success then
-            print("[ERRO]: Não consegue remover. pid:", pParams.id)
-        end
-    end
+AddEventHandler("caue-weed:removePlant", function(pParams)
+	TriggerEvent("animation:PlayAnimation", "layspike")
+	local finished = exports["caue-taskbar"]:taskBar(
+		3000,
+		"Removendo",
+		false,
+		true,
+		false,
+		false,
+		nil,
+		5.0,
+		PlayerPedId()
+	)
+	ClearPedTasks(PlayerPedId())
+	if finished == 100 then
+		local getFertilizer = getPlantGrowthPercent(weedPlants[pParams.id]) > 20.0
+		local success = RPC.execute("caue-weed:removePlant", pParams.id, getFertilizer)
+		if not success then
+			print("[ERRO]: Não consegue remover. pid:", pParams.id)
+		end
+	end
 end)
 
 AddEventHandler("caue-weed:pickPlant", function(pContext, pEntity)
-    local plantId = false
+	local plantId = false
 
-    for id, plant in pairs(activeZones) do
-        if pEntity == plant then
-            plantId = id
-            break
-        end
-    end
+	for id, plant in pairs(activeZones) do
+		if pEntity == plant then
+			plantId = id
+			break
+		end
+	end
 
-    if not plantId then return end
+	if not plantId then
+		return
+	end
 
-    local plant = weedPlants[plantId]
-    if getPlantGrowthPercent(plant) < PlantConfig.HarvestPercent then
-        TriggerEvent("DoLongHudText", "Esta planta ainda não esta pronta.", 2)
-        return
-    end
+	local plant = weedPlants[plantId]
+	if getPlantGrowthPercent(plant) < PlantConfig.HarvestPercent then
+		TriggerEvent("DoLongHudText", "This plant is not ready yet.", 2)
+		return
+	end
 
-    local timeSinceHarvest = GetCloudTimeAsInt() - plant.last_harvest
-    if timeSinceHarvest <= (PlantConfig.TimeBetweenHarvest * 60) then
-        TriggerEvent("DoLongHudText", "Esta planta já foi colhida recentemente! Melhor voltar mais tarde para tentar colher de novo.", 2)
-        return
-    end
+	local timeSinceHarvest = GetCloudTimeAsInt() - plant.last_harvest
+	if timeSinceHarvest <= (PlantConfig.TimeBetweenHarvest * 60) then
+		TriggerEvent("DoLongHudText", "This plant has been harvested recently! Better come back later to try again.", 2)
+		return
+	end
 
-    local plyWeight = exports["caue-inventory"]:getCurrentWeight()
-    if plyWeight + 35.0 > 250.0 and plant.gender == 0 then
-        TriggerEvent("DoLongHudText", "Você não consegue carregar esse tanto de peso.", 2)
-        return
-    end
+	local plyWeight = exports["caue-inventory"]:getCurrentWeight()
+	if plyWeight + 35.0 > 250.0 and plant.gender == 0 then
+		TriggerEvent("DoLongHudText", "You can't carry that much weight.", 2)
+		return
+	end
 
-    TriggerEvent("animation:PlayAnimation", "layspike")
-    local finished = exports["caue-taskbar"]:taskBar(10000, "Colhendo", false, true, false, false, nil, 5.0, PlayerPedId())
+	TriggerEvent("animation:PlayAnimation", "layspike")
+	local finished = exports["caue-taskbar"]:taskBar(
+		10000,
+		"Harvesting",
+		false,
+		true,
+		false,
+		false,
+		nil,
+		5.0,
+		PlayerPedId()
+	)
     ClearPedTasks(PlayerPedId())
     if finished == 100 then
         RPC.execute("caue-weed:harvestPlant", plantId)

@@ -258,80 +258,100 @@ CreateThread(function()
                     local dunk_to_use = Config.Courts[Cache.GameData.Court].dunking[(Cache.GameData.Team == "home" and "guest") or "home"]
                     if #(GetEntityCoords(Cache.self) - dunk_to_use.xyz) <= 3.0 then
                         if AntiSpam > GetGameTimer() then
-                            TriggerEvent("DoLongHudText", "Mais devagar!", 2)
+							TriggerEvent("DoLongHudText", "MSlower!", 2)
                         else
-                            if math.random(1, 100) <= Config.dunk_percent then
-                                TriggerServerEvent("loaf_basketball:set_dribbler", Cache.GameData.Court, true)
-                                while Cache.GameData.Court and GetBasketData(Cache.GameData.Court, "dribbler") == Cache.id do
-                                    Wait(0)
-                                end
-                                ClearPedTasksImmediately(Cache.self)
-                                Dunk(dunk_to_use)
-                                DetachEntity(Cache.ball)
-                            else
-                                AntiSpam = GetGameTimer() + 5000
-                                Notify(Strings["better_luck_dunk"])
-                                Wait(500)
-                            end
+							if math.random(1, 100) <= Config.dunk_percent then
+								TriggerServerEvent("loaf_basketball:set_dribbler", Cache.GameData.Court, true)
+								while
+									Cache.GameData.Court
+									and GetBasketData(Cache.GameData.Court, "dribbler") == Cache.id
+								do
+									Wait(0)
+								end
+								ClearPedTasksImmediately(Cache.self)
+								Dunk(dunk_to_use)
+								DetachEntity(Cache.ball)
+							else
+								AntiSpam = GetGameTimer() + 5000
+								Notify(Strings["better_luck_dunk"])
+								Wait(500)
+							end
                         end
                     end
                 end
             end
 
-            if IsEntityPlayingAnim(Cache.self, "anim@move_m@trash", "walk", 3) then
-                ClearPedTasksImmediately(Cache.self)
-            end
+			if IsEntityPlayingAnim(Cache.self, "anim@move_m@trash", "walk", 3) then
+				ClearPedTasksImmediately(Cache.self)
+			end
 
-            if IsEntityAttachedToEntity(Cache.ball, Cache.self) then
-                DetachEntity(Cache.ball)
-            end
+			if IsEntityAttachedToEntity(Cache.ball, Cache.self) then
+				DetachEntity(Cache.ball)
+			end
         end
     end
 end)
 
 CreateThread(function()
     while true do
-        Wait(500)
-        local court = Cache.GameData.Court
+		Wait(500)
+		local court = Cache.GameData.Court
         if court and GetBasketData(court, "game") then
             while GetBasketData(court, "game") and Cache.GameData.Court do
-                Wait(0)
+				Wait(0)
 
                 while DoesEntityExist(Cache.ball) do
-                    Wait(0)
+					Wait(0)
 
                     if not GetBasketData(court, "dribbler") then
-                        while #(GetEntityCoords(Cache.self) - GetEntityCoords(Cache.ball)) <= 2.0 and not GetBasketData(court, "dribbler") do
-                            Wait(0)
-                            DrawText3D(GetEntityCoords(Cache.ball), Strings["pickup_ball"])
-                            if IsControlJustReleased(0, 51) then
-                                TriggerServerEvent("loaf_basketball:set_dribbler", Cache.GameData.Court)
-                            end
-                        end
+						while
+							#(GetEntityCoords(Cache.self) - GetEntityCoords(Cache.ball)) <= 2.0
+							and not GetBasketData(court, "dribbler")
+						do
+							Wait(0)
+							DrawText3D(GetEntityCoords(Cache.ball), Strings["pickup_ball"])
+							if IsControlJustReleased(0, 51) then
+								TriggerServerEvent("loaf_basketball:set_dribbler", Cache.GameData.Court)
+							end
+						end
                     elseif Cache.GameData.Court and GetBasketData(Cache.GameData.Court, "dribbler") == Cache.id then
-                        if IsPedWalking(Cache.self) then
-                            Dribble(2, 1.9, -3.0, 3.2, 250, 350)
-                        elseif IsPedRunning(Cache.self) then
-                            Dribble(6, 4.2, -5.0, 4.0, 150, 250)
-                        elseif IsPedSprinting(Cache.self) then
-                            Dribble(9, 8, -8.0, 2.5, 150, 250)
-                        elseif not IsEntityAttachedToEntity(Cache.ball, Cache.self) then
-                            SetOwner(Cache.ball)
-                            AttachBall()
-                        end
+						if IsPedWalking(Cache.self) then
+							Dribble(2, 1.9, -3.0, 3.2, 250, 350)
+						elseif IsPedRunning(Cache.self) then
+							Dribble(6, 4.2, -5.0, 4.0, 150, 250)
+						elseif IsPedSprinting(Cache.self) then
+							Dribble(9, 8, -8.0, 2.5, 150, 250)
+						elseif not IsEntityAttachedToEntity(Cache.ball, Cache.self) then
+							SetOwner(Cache.ball)
+							AttachBall()
+						end
 
-                        if not IsEntityPlayingAnim(Cache.self, "anim@move_m@trash", "walk", 3) then
-                            TaskPlayAnim(Cache.self, LoadDict("anim@move_m@trash"), "walk", 8.0, 8.0, -1, 51, 1, false, false, false)
-                            while not IsEntityPlayingAnim(Cache.self, "anim@move_m@trash", "walk", 3) do Wait(0) end
-                        end
+						if not IsEntityPlayingAnim(Cache.self, "anim@move_m@trash", "walk", 3) then
+							TaskPlayAnim(
+								Cache.self,
+								LoadDict("anim@move_m@trash"),
+								"walk",
+								8.0,
+								8.0,
+								-1,
+								51,
+								1,
+								false,
+								false,
+								false
+							)
+							while not IsEntityPlayingAnim(Cache.self, "anim@move_m@trash", "walk", 3) do
+								Wait(0)
+							end
+						end
                     else
                         while #(GetEntityCoords(Cache.self) - GetEntityCoords(Cache.ball)) <= 1.0 and GetBasketData(court, "dribbler") and GetBasketData(court, "dribbler") ~= Cache.id do
-                            Wait(0)
-                            DrawText3D(GetEntityCoords(Cache.ball), Strings["steal_ball"])
+							Wait(0)
+							DrawText3D(GetEntityCoords(Cache.ball), Strings["steal_ball"])
                             if IsControlJustReleased(0, 51) then
                                 if HasEntityClearLosToEntityInFront(Cache.self, Cache.ball) then
                                     if AntiSpam > GetGameTimer() then
-                                        TriggerEvent("DoLongHudText", "Mais devagar!", 2)
+										TriggerEvent("DoLongHudText", "Slower!", 2)
                                     else
                                         if math.random(1, 100) <= Config.snatch_ball then
                                             TaskPlayAnim(Cache.self, LoadDict("anim@am_hold_up@male"), "shoplift_mid", 8.0, 8.0, -1, 52, 1, false, false, false)

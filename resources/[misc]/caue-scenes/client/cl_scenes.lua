@@ -45,62 +45,65 @@ function ToggleCreationLaser(data)
                     if hit then
                         TriggerServerEvent("caue-scenes:server:CreateScene", data)
                     else
-                        TriggerEvent("DoLongHudText", "Laser não atingiu nada.", 2)
+						TriggerEvent("DoLongHudText", "Laser didn't hit anything.", 2)
                     end
                 elseif IsControlJustReleased(0, 47) then
-                    creationLaser = false
-                    OpenMenu()
+					creationLaser = false
+					OpenMenu()
                 end
 
-                Wait(0)
+				Wait(0)
             end
         end)
     end
 end
 
 function ToggleDeletionLaser()
-    creationLaser = false
-    deletionLaser = not deletionLaser
+	creationLaser = false
+	deletionLaser = not deletionLaser
 
-    if deletionLaser then
-        CreateThread(function()
-            while deletionLaser do
-                local hit, coords = DrawLaser("APERTE ~r~E~w~ PARA EXCLUIR\nAPERTE ~r~G~w~ PARA CANCELAR", {r = 255, g = 0, b = 0, a = 200})
+	if deletionLaser then
+		CreateThread(function()
+			while deletionLaser do
+				local hit, coords = DrawLaser(
+					"APERTE ~r~E~w~ PARA EXCLUIR\nAPERTE ~r~G~w~ PARA CANCELAR",
+					{ r = 255, g = 0, b = 0, a = 200 }
+				)
 
-                if IsControlJustReleased(0, 38) then
-                    deletionLaser = false
-                    if hit then
-                        DeleteScene(coords)
-                    else
-                        TriggerEvent("DoLongHudText", "Laser não atingiu nada.", 2)
-                    end
-                elseif IsControlJustReleased(0, 47) then
-                    deletionLaser = false
-                end
+				if IsControlJustReleased(0, 38) then
+					deletionLaser = false
+					if hit then
+						DeleteScene(coords)
+					else
+						TriggerEvent("DoLongHudText", "Laser didn't hit anything.", 2)
+					end
+				elseif IsControlJustReleased(0, 47) then
+					deletionLaser = false
+				end
 
-                Wait(0)
-            end
-        end)
-    end
+				Wait(0)
+			end
+		end)
+	end
 end
 
 function DeleteScene(coords)
-    local closestScene = nil
-    local shortestDistance = nil
-    for i=1,#scenes do
-        local currentScene = scenes[i]
-        local distance =  #(coords - currentScene.coords)
-        if distance < 1 and (closestDistance == nil or distance < shortestDistance) then
-            closestScene = currentScene.id
-            shortestDistance = distance
-        end
-    end
+	local closestScene = nil
+	local shortestDistance = nil
+	for i = 1, #scenes do
+		local currentScene = scenes[i]
+		local distance = #(coords - currentScene.coords)
+		if distance < 1 and (closestDistance == nil or distance < shortestDistance) then
+			closestScene = currentScene.id
+			shortestDistance = distance
+		end
+	end
 
     if closestScene then
-        TriggerEvent("DoLongHudText", "Cena deletada!")
-        TriggerServerEvent("caue-scenes:server:DeleteScene", closestScene)
+		TriggerEvent("DoLongHudText", "Scene deleted!")
+		TriggerServerEvent("caue-scenes:server:DeleteScene", closestScene)
     else
-        TriggerEvent("DoLongHudText", "Nenhuma cena estava perto o suficiente.", 2)
+		TriggerEvent("DoLongHudText", "No scene was close enough.", 2)
     end
 end
 

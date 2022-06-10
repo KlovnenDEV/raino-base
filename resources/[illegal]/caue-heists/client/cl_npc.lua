@@ -59,7 +59,7 @@ AddEventHandler("robEntity", function(pEntity, pVehicle)
 
 		if math.random(1000) < 30 and #(pedCrds - entCrds) < 7.0 then
 			if pVehicle ~= 0 then
-				TriggerEvent("DoLongHudText", "Você pegou as chaves do veiculo!")
+				TriggerEvent("DoLongHudText", "You got the vehicle keys!")
 				SetVehicleHasBeenOwnedByPlayer(pVehicle, true)
 				TriggerEvent("keys:addNew", pVehicle)
 			end
