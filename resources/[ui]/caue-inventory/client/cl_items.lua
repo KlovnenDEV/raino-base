@@ -465,7 +465,7 @@ AddEventHandler("RunUseItem", function(itemid, slot, inventoryName, isWeapon, pa
                 TriggerEvent("UseBodyArmor")
                 remove = true
             else
-                TriggerEvent("DoLongHudText","Você não pode usar colete, porque está incapacitado.")
+                TriggerEvent("DoLongHudText","You can't wear a vest, because you're incapacitated.")
             end
         end
     end
@@ -487,7 +487,7 @@ AddEventHandler("RunUseItem", function(itemid, slot, inventoryName, isWeapon, pa
     end
 
     if (itemid == "ciggy") then
-        local finished = exports["caue-taskbar"]:taskBar(1000,"Acendendo",false,false,playerVeh)
+        local finished = exports["caue-taskbar"]:taskBar(1000,"lighting",false,false,playerVeh)
         if (finished == 100) then
             Wait(300)
             TriggerEvent("animation:PlayAnimation","smoke")
