@@ -414,7 +414,7 @@ AddEventHandler("apartment:attemptEntry", function(roomNumberSent)
 		if Apart.currentRoomLocks[roomType][roomNumber] == false then
 			Apart.enterMotel(roomNumber, roomType)
 		else
-			TriggerEvent("DoLongHudText", "Apartamento está trancado", 2)
+			TriggerEvent("DoLongHudText", "Apartment is locked", 2)
 		end
 	end
 end)

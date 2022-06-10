@@ -162,7 +162,7 @@ AddEventHandler("caue-doors:doorKeyFob", function()
         local entity = exports["caue-target"]:GetEntityPlayerIsLookingAt(10.0, 2.0, 16)
 
         if not entity then
-            return TriggerEvent("DoLongHudText","Porta não encontrada.",2)
+			return TriggerEvent("DoLongHudText", "Door not found", 2)
         end
 
         if printEntityDetails then
@@ -178,16 +178,16 @@ AddEventHandler("caue-doors:doorKeyFob", function()
 
 
     if not doorId then
-        return TriggerEvent("DoLongHudText","Porta não encontrada.",2)
+        return TriggerEvent("DoLongHudText","Door not found",2)
     end
 
     if (not hasSecuredAccess(doorId, "door") or not AllowsKeyFob(doorId)) then
-        PlaySoundFromEntity(-1, "Keycard_Fail", PlayerPedId(), "DLC_HEISTS_BIOLAB_FINALE_SOUNDS", 1, 5.0);
-        return TriggerEvent("DoLongHudText", "As chaves não funcionam nessa porta",2)
+        PlaySoundFromEntity(-1, "Keycard_Fail", PlayerPedId(), "DLC_HEISTS_BIOLAB_FINALE_SOUNDS", 1, 5.0)
+        return TriggerEvent("DoLongHudText", "Keys don't work on this door",2)
     end
 
     local isLocked = (DoorSystemGetDoorState(doorId) ~= 0 and true or false)
-    PlaySoundFromEntity(-1, "Keycard_Success", PlayerPedId(), "DLC_HEISTS_BIOLAB_FINALE_SOUNDS", 1, 5.0);
+    PlaySoundFromEntity(-1, "Keycard_Success", PlayerPedId(), "DLC_HEISTS_BIOLAB_FINALE_SOUNDS", 1, 5.0)
 
     TriggerServerEvent("caue-doors:change-lock-state", doorId, isBollard and (not isLocked and 6 or 0) or (not isLocked))
 end)
@@ -292,7 +292,7 @@ AddEventHandler("caue-doors:add", function()
     local pEntityType = GetEntityType(pEntity)
 
     if pEntity == nil or pEntityType ~= 3 then
-        TriggerEvent("DoLongHudText", "Porta não encontrada.", 2)
+        TriggerEvent("DoLongHudText", "Door not found", 2)
         return
     end
 

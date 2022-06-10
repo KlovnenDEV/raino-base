@@ -87,7 +87,7 @@ function InteractionPressed(pRadial)
 
     if not isGov() and Housing.currentOwned[propertyID] == nil and Housing.currentKeys[propertyId] == nil then
         if (Housing.currentHousingLocks == nil or Housing.currentHousingLocks[propertyID] == nil) and #(vec3FromVec4(Housing.info[propertyID]["pos"])-player) <= 4.5 and not hasBeenRobbed then
-            TriggerEvent("DoLongHudText","Propriedade trancada",2)
+            TriggerEvent("DoLongHudText","Property locked",2)
             return
         end
     end
@@ -116,7 +116,7 @@ function InteractionPressed(pRadial)
                             Housing.func.enterBuilding(propertyID,pos.backdoor_coordinates.internal)
                         end
                     else
-                        TriggerEvent("DoLongHudText","Propriedade bloqueada, você não pode acessar.",2)
+                        TriggerEvent("DoLongHudText","Property locked, you cannot access.",2)
                     end
                 end
 
@@ -127,7 +127,7 @@ function InteractionPressed(pRadial)
         if #(vec3FromVec4(Housing.info[propertyID]["pos"])-player) <= Housing.ranges.doorEnterRange then
             if not isGov() then
                 if Housing.currentHousingLocks == nil or Housing.currentHousingLocks[propertyID] == nil then
-                    TriggerEvent("DoLongHudText","Propriedade trancada",2)
+                    TriggerEvent("DoLongHudText","Property locked",2)
                     return
                 end
             end
@@ -139,7 +139,7 @@ function InteractionPressed(pRadial)
                     if lockdownCheck(propertyID) then
                         Housing.func.enterBuilding(propertyID)
                     else
-                        TriggerEvent("DoLongHudText","Propriedade bloqueada, você não pode acessar",2)
+                        TriggerEvent("DoLongHudText","Property locked, you cannot access",2)
                     end
                 end
             end
@@ -203,12 +203,12 @@ function enterEdit(pPropertyId)
     local propertyID = pPropertyId
 
     if propertyID == 0 or propertyID == "" then
-        TriggerEvent("DoLongHudText", "falha ao buscar propriedade", false)
+        TriggerEvent("DoLongHudText", "failed to fetch property", false)
         return
     end
 
     if Housing.typeInfo[Housing.info[propertyID].model].cat == "buisness" then
-        TriggerEvent("DoLongHudText", "não é possível editar uma propriedade comercial", 2)
+        TriggerEvent("DoLongHudText", "cannot edit a business property", 2)
         return
     end
 
@@ -220,7 +220,7 @@ function enterEdit(pPropertyId)
         if isResult == false then
             if Housing.currentOwned[propertyID] == nil and Housing.currentKeys[propertyID] == nil then
                 Housing.currentlyEditing = nil
-                TriggerEvent("DoLongHudText", "Você não possui essa propriedade.", 2)
+                TriggerEvent("DoLongHudText", "You do not own this property.", 2)
                 return
             end
         end
@@ -230,7 +230,7 @@ function enterEdit(pPropertyId)
         end
 
         if Housing.currentHousingLockdown ~= nil and Housing.currentHousingLockdown[propertyID] and isResult == false then
-            TriggerEvent("DoLongHudText", "Não é possível editar uma propriedade bloquada.", 2)
+            TriggerEvent("DoLongHudText", "Unable to edit a locked property.", 2)
             return
         end
 
@@ -276,7 +276,7 @@ function enterEdit(pPropertyId)
 
         TriggerEvent("caue-housing:edit")
     else
-        TriggerEvent("DoLongHudText", "Muito longe da propriedade.", 2)
+        TriggerEvent("DoLongHudText", "Too far from the property.", 2)
     end
 end
 
@@ -298,22 +298,22 @@ end
 
 function setGarage()
     if Housing.currentlyEditing == false then
-        TriggerEvent("DoLongHudText", "Fora do modo edição", 2)
+        TriggerEvent("DoLongHudText", "Out of edit mode", 2)
         return
     end
 
     if Housing.currentOwned[Housing.currentlyEditing] == nil then
-        TriggerEvent("DoLongHudText", "você não possui essa propriedade", 2)
+        TriggerEvent("DoLongHudText", "you don't own this property", 2)
         return
     end
 
     if not hasCorrectFlags("canHaveGarage",Housing.currentlyEditing) then
-        TriggerEvent("DoLongHudText", "Indisponível para a propriedade.", 2)
+        TriggerEvent("DoLongHudText", "Unavailable for the property.", 2)
         return
     end
 
     if not IsPedInAnyVehicle(PlayerPedId(), false) then
-        TriggerEvent("DoLongHudText", "Deve ser feito dentro do veículo.", 2)
+        TriggerEvent("DoLongHudText", "Must be done inside the vehicle.", 2)
         return
     end
 

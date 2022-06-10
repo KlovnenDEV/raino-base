@@ -62,188 +62,200 @@ function attemptToLockPickHouse(skipPicking)
     end
 
     if not canRobProperty() then
-        TriggerEvent("DoLongHudText", "Não acho que é uma boa escolha mexer por aqui tão cedo assim, pode dar merda", 2)
-        return
+		TriggerEvent(
+			"DoLongHudText",
+			"I don't think it's a good choice to mess around here this early, it can go to shit",
+			2
+		)
+		return
     end
 
-    if type(robTargets) == "table" then
-        Housing.housingRobTargets = robTargets
-    end
+	if type(robTargets) == "table" then
+		Housing.housingRobTargets = robTargets
+	end
 
-    local lockpicked, housingRobbed, robTargets, alarm = false, {}, {}, false
+	local lockpicked, housingRobbed, robTargets, alarm = false, {}, {}, false
 
-    local pickedToOpen = false
-    if not skipPicking then
-        if not Housing.housingBeingRobbedClient[propertyID] then
-            lockpickDoor()
-            TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lockpick", 0.4)
+	local pickedToOpen = false
+	if not skipPicking then
+		if not Housing.housingBeingRobbedClient[propertyID] then
+			lockpickDoor()
+			TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lockpick", 0.4)
 
-            local finished = exports["caue-taskbar"]:taskBar(math.random(5000, 10000), "Arrombando")
+			local finished = exports["caue-taskbar"]:taskBar(math.random(5000, 10000), "Arrombando")
 
-            local failed = false
-            if math.random(100) < 30 then
-                failed = true
-            end
+			local failed = false
+			if math.random(100) < 30 then
+				failed = true
+			end
 
-            ClearPedTasks(PlayerPedId())
+			ClearPedTasks(PlayerPedId())
 
-            if finished ~= 100 or failed then
-                TriggerEvent("inventory:removeItem","lockpick", 1)
-                TriggerEvent("Evidence:StateSet",26,1200)
-                TriggerEvent("evidence:bleeding",false)
-                Housing.lockpicking = false
-                return
-            end
+			if finished ~= 100 or failed then
+				TriggerEvent("inventory:removeItem", "lockpick", 1)
+				TriggerEvent("Evidence:StateSet", 26, 1200)
+				TriggerEvent("evidence:bleeding", false)
+				Housing.lockpicking = false
+				return
+			end
 
-            lockpicked, housingRobbed, robTargets, alarm = RPC.execute("housing:robbery:pickedLock", propertyID)
+			lockpicked, housingRobbed, robTargets, alarm = RPC.execute("housing:robbery:pickedLock", propertyID)
 
-            if type(housingRobbed) == "table" then
-                Housing.housingBeingRobbedClient = housingRobbed
-            end
+			if type(housingRobbed) == "table" then
+				Housing.housingBeingRobbedClient = housingRobbed
+			end
 
-            if type(robTargets) == "table" then
-                Housing.housingRobTargets = robTargets
-            end
+			if type(robTargets) == "table" then
+				Housing.housingRobTargets = robTargets
+			end
 
-            Housing.alarm = alarm
-            pickedToOpen = true
-        else
-            TriggerEvent("DoLongHudText","Você pode mexer na porta.",2)
-            return
-        end
-    end
+			Housing.alarm = alarm
+			pickedToOpen = true
+		else
+			TriggerEvent("DoLongHudText", "Você pode mexer na porta.", 2)
+			return
+		end
+	end
 
-    if pickedToOpen and not skipPicking then
-        TriggerEvent("civilian:alertPolice", 10.0, "housing")
-    end
+	if pickedToOpen and not skipPicking then
+		TriggerEvent("civilian:alertPolice", 10.0, "housing")
+	end
 
-    if lockpicked then
-        Housing.lockout = false
-        Housing.attackedTarget = propertyID
-        Housing.currentlyRobInside = propertyID
-        Housing.func.enterBuilding(propertyID,nil,false)
-    else
-        if Housing.attackedTarget == nil then
-            Housing.lockout = false
-            Housing.attackedTarget = propertyID
-        end
-        Housing.lockpicking = false
-        Housing.currentlyRobInside = propertyID
-        Housing.func.enterBuilding(propertyID,nil,true)
-    end
+	if lockpicked then
+		Housing.lockout = false
+		Housing.attackedTarget = propertyID
+		Housing.currentlyRobInside = propertyID
+		Housing.func.enterBuilding(propertyID, nil, false)
+	else
+		if Housing.attackedTarget == nil then
+			Housing.lockout = false
+			Housing.attackedTarget = propertyID
+		end
+		Housing.lockpicking = false
+		Housing.currentlyRobInside = propertyID
+		Housing.func.enterBuilding(propertyID, nil, true)
+	end
 end
 
 function canRobProperty()
-    local myjob = exports["caue-base"]:getChar("job")
-    if exports["caue-jobs"]:getJob(myjob, "is_police") or myjob == "judge" then
-        return true
-    end
+	local myjob = exports["caue-base"]:getChar("job")
+	if exports["caue-jobs"]:getJob(myjob, "is_police") or myjob == "judge" then
+		return true
+	end
 
-    if daytime == false then
-        return true
-    end
+	if daytime == false then
+		return true
+	end
 
-    return false
+	return false
 end
 
 function lockpickDoor()
-    if Housing.lockpicking then return end
-    Housing.lockpicking = true
-    Citizen.CreateThread(function()
-        local lPed = PlayerPedId()
-        RequestAnimDict("veh@break_in@0h@p_m_one@")
-        while not HasAnimDictLoaded("veh@break_in@0h@p_m_one@") do
-            Citizen.Wait(0)
-        end
+	if Housing.lockpicking then
+		return
+	end
+	Housing.lockpicking = true
+	Citizen.CreateThread(function()
+		local lPed = PlayerPedId()
+		RequestAnimDict("veh@break_in@0h@p_m_one@")
+		while not HasAnimDictLoaded("veh@break_in@0h@p_m_one@") do
+			Citizen.Wait(0)
+		end
 
-        while Housing.lockpicking do
-            TaskPlayAnim(lPed, "veh@break_in@0h@p_m_one@", "low_force_entry_ds", 1.0, 1.0, 1.0, 16, 0.0, 0, 0, 0)
-            Citizen.Wait(2500)
-        end
-        ClearPedTasks(lPed)
-    end)
+		while Housing.lockpicking do
+			TaskPlayAnim(lPed, "veh@break_in@0h@p_m_one@", "low_force_entry_ds", 1.0, 1.0, 1.0, 16, 0.0, 0, 0, 0)
+			Citizen.Wait(2500)
+		end
+		ClearPedTasks(lPed)
+	end)
 end
 
 function buildRobLocations(model, propertyID)
-    local robLocations = {}
+	local robLocations = {}
 
-    local index1 = 1
-    for k, v in pairs(Housing.staticObjectRobPoints) do
-        robLocations[index1] = v
-        robLocations[index1].model = robLocations[index1].id
-        robLocations[index1].id = getIdfromObjectName(model,robLocations[index1].id)
-        index1 = index1 + 1
-    end
+	local index1 = 1
+	for k, v in pairs(Housing.staticObjectRobPoints) do
+		robLocations[index1] = v
+		robLocations[index1].model = robLocations[index1].id
+		robLocations[index1].id = getIdfromObjectName(model, robLocations[index1].id)
+		index1 = index1 + 1
+	end
 
-    local buildingVector = exports["caue-build"]:getModule("func").currentBuildingVector()
-    for i, v in ipairs(Housing.housingRobTargets.pos) do
-        local vector = Housing.robInformation.staticLocations[model].staticPositions[i].pos
+	local buildingVector = exports["caue-build"]:getModule("func").currentBuildingVector()
+	for i, v in ipairs(Housing.housingRobTargets.pos) do
+		local vector = Housing.robInformation.staticLocations[model].staticPositions[i].pos
 
-        robLocations[index1] = {["pos"] = getGlobalVector(vector,buildingVector) ,["id"] = i, ["model"] = "none"}
-        index1 = index1 + 1
-    end
+		robLocations[index1] = { ["pos"] = getGlobalVector(vector, buildingVector), ["id"] = i, ["model"] = "none" }
+		index1 = index1 + 1
+	end
 
-    local finished, locations = RPC.execute("housing:robbery:robLocationsGenerated", robLocations, propertyID)
-    Housing.robPosLocations = locations
-    alarm(false)
+	local finished, locations = RPC.execute("housing:robbery:robLocationsGenerated", robLocations, propertyID)
+	Housing.robPosLocations = locations
+	alarm(false)
 end
 
-function getIdfromObjectName(model,objectName)
-    if Housing.robInformation.dynamic[objectName] ~= nil then
-        return Housing.robInformation.dynamic[objectName]
-    end
+function getIdfromObjectName(model, objectName)
+	if Housing.robInformation.dynamic[objectName] ~= nil then
+		return Housing.robInformation.dynamic[objectName]
+	end
 
-    return Housing.robInformation.staticLocations[model].staticObjects[objectName]
+	return Housing.robInformation.staticLocations[model].staticObjects[objectName]
 end
 
-function getGlobalVector(vector,buildingVector)
-    local vec3 = vec3FromVec4(vector)
-    return (vec3 + buildingVector)
+function getGlobalVector(vector, buildingVector)
+	local vec3 = vec3FromVec4(vector)
+	return (vec3 + buildingVector)
 end
 
 function alarm(clearAlarm)
-    if Housing.alarm then
-        local alarmOffset = exports["caue-build"]:getModule("func").getAlarm()
+	if Housing.alarm then
+		local alarmOffset = exports["caue-build"]:getModule("func").getAlarm()
 
-        if alarmOffset ~= false then
-            TriggerEvent("InteractSound_CL:playAlarm", alarmOffset, clearAlarm)
-        end
-    else
-        TriggerEvent("InteractSound_CL:playAlarm", false, true)
-    end
+		if alarmOffset ~= false then
+			TriggerEvent("InteractSound_CL:playAlarm", alarmOffset, clearAlarm)
+		end
+	else
+		TriggerEvent("InteractSound_CL:playAlarm", false, true)
+	end
 end
 
-function displayPickup(force,itemName)
-    if force and Housing.currentlyDisplayingPickup == true then
-        Housing.currentlyDisplayingPickup = false
-        exports["caue-interaction"]:hideInteraction()
-    end
+function displayPickup(force, itemName)
+	if force and Housing.currentlyDisplayingPickup == true then
+		Housing.currentlyDisplayingPickup = false
+		exports["caue-interaction"]:hideInteraction()
+	end
 
-    if Housing.currentlyDisplayingPickup == false and not force then
-        Housing.currentlyDisplayingPickup = true
-        if type(itemName) == "string" then
-            exports["caue-interaction"]:showInteraction("[E] Take Object")
-        else
-            exports["caue-interaction"]:showInteraction("[E] Procurar algum pertence.")
-        end
-    end
+	if Housing.currentlyDisplayingPickup == false and not force then
+		Housing.currentlyDisplayingPickup = true
+		if type(itemName) == "string" then
+			exports["caue-interaction"]:showInteraction("[E] Take Object")
+		else
+			exports["caue-interaction"]:showInteraction("[E] Procurar algum pertence.")
+		end
+	end
 end
 
 function interactRob()
-    if not Housing.currentlyDisplayingPickup then return end
-    if Housing.currentClosestSelected == nil then return end
+	if not Housing.currentlyDisplayingPickup then
+		return
+	end
+	if Housing.currentClosestSelected == nil then
+		return
+	end
 
-    local item = Housing.robPosLocations[Housing.currentClosestSelected].id
-    local vec3 = Housing.robPosLocations[Housing.currentClosestSelected].pos
-    local model = Housing.robPosLocations[Housing.currentClosestSelected].model
+	local item = Housing.robPosLocations[Housing.currentClosestSelected].id
+	local vec3 = Housing.robPosLocations[Housing.currentClosestSelected].pos
+	local model = Housing.robPosLocations[Housing.currentClosestSelected].model
 
-    local targetObject = GetClosestObjectOfType(vec3.x,vec3.y,vec3.z, 5.0,GetHashKey(model), 0, 0, 0)
-    if targetObject == 0 and type(item) == "string" then return end
+	local targetObject = GetClosestObjectOfType(vec3.x, vec3.y, vec3.z, 5.0, GetHashKey(model), 0, 0, 0)
+	if targetObject == 0 and type(item) == "string" then
+		return
+	end
 
     if type(item) == "string" then
-        local weight = exports["caue-inventory"]:getCurrentWeight()
+		local weight = exports["caue-inventory"]:getCurrentWeight()
         if weight + 200 >= 250 then
-            TriggerEvent("DoLongHudText","Você está carregando muito peso.",2)
+			TriggerEvent("DoLongHudText", "You are carrying too much weight.", 2)
             return
         end
     end
@@ -312,7 +324,7 @@ function interactRob()
             elseif euemeusmanosodiamosoartmike >= 21 then
                 items = {"joint", "lean", "1gcocaine", "1gmeta"}
             elseif euemeusmanosodiamosoartmike >= 14 then
-                TriggerEvent("DoLongHudText", "Você não encontrou nada")
+                TriggerEvent("DoLongHudText", "you didn't find anything")
             elseif euemeusmanosodiamosoartmike >= 7 then
                 TriggerServerEvent("caue-heists:complete", math.random(30, 50))
             elseif euemeusmanosodiamosoartmike >= 1 then
