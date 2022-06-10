@@ -78,7 +78,7 @@ AddEventHandler("robEntity", function(pEntity, pVehicle)
 
 					Citizen.Wait(1200)
 				else
-					TriggerEvent("DoLongHudText", "Eu não tenho nada, cara!!", 2)
+					TriggerEvent("DoLongHudText", "I have nothing, man!!", 2)
 				end
 			end
 

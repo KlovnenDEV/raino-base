@@ -27,24 +27,35 @@ function DoctorNPC()
     ClearPedTasks(entityPed)
 	Citizen.Wait(500)
     TriggerEvent("reviveFunction")
-	TriggerEvent("DoLongHudText", "Seu tratamento acabou, foi cobrado o valor de: $" .. 500)
+	TriggerEvent("DoLongHudText", "Your treatment is over, you have been charged the amount of: $" .. 500)
 
-    if entityVehicle then
-        TaskVehicleDriveToCoord(entityPed, entityVehicle, 307.93, -594.99, 43.29, 20.0, 0, GetEntityModel(entityVehicle), 524863, 2.0)
-    else
-        RemovePedElegantly(entityPed)
-    end
+	if entityVehicle then
+		TaskVehicleDriveToCoord(
+			entityPed,
+			entityVehicle,
+			307.93,
+			-594.99,
+			43.29,
+			20.0,
+			0,
+			GetEntityModel(entityVehicle),
+			524863,
+			2.0
+		)
+	else
+		RemovePedElegantly(entityPed)
+	end
 
-    npcComing = false
+	npcComing = false
 
-    Citizen.Wait(60000)
+	Citizen.Wait(60000)
 
-    RemovePedElegantly(entityPed)
-    DeleteEntity(entityPed)
+	RemovePedElegantly(entityPed)
+	DeleteEntity(entityPed)
 
-    if DeleteEntity(entityVehicle) then
-        DeleteEntity(entityVehicle)
-    end
+	if DeleteEntity(entityVehicle) then
+		DeleteEntity(entityVehicle)
+	end
 end
 
 --[[
@@ -55,8 +66,8 @@ end
 
 RegisterNetEvent("caue-death:medicNPC")
 AddEventHandler("caue-death:medicNPC", function()
-    npcComing = true
-    TriggerEvent("DoLongHudText", "Aguarde, o paramedico esta a caminho")
+	npcComing = true
+	TriggerEvent("DoLongHudText", "Wait, the paramedic is on his way")
 
     local vehhash = GetHashKey("ambulance")
     RequestModel(vehhash)
