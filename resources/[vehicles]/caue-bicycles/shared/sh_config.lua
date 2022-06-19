@@ -14,7 +14,7 @@ Config = {
 
     ["NPC"] = {
         id = "bicycle_shop",
-        name = "Loja de Bikes",
+        name = "Bike Shop",
         pedType = 4,
         model = "ig_claypain",
         networked = false,
