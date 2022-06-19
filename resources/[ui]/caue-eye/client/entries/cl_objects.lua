@@ -143,6 +143,23 @@ Entries[#Entries + 1] = {
 }
 
 Entries[#Entries + 1] = {
+	type = "flag",
+	group = { "isATM" },
+	data = {
+		{
+			id = "hack_atm",
+			label = "Hack ATM",
+			icon = "credit-card",
+			event = "financial:openUI",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 1.5 },
+	},
+}
+
+Entries[#Entries + 1] = {
     type = "flag",
     group = { "isWeedPlant" },
     data = {
