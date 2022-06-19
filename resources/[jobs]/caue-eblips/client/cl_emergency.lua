@@ -5,6 +5,7 @@
 ]]
 
 local BlipHandlers = {}
+local Blippy = {}
 
 --[[
 
