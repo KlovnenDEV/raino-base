@@ -26,7 +26,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "carry_bike",
-            label = "Carregar Bicicleta",
+            label = "Carry Bike",
             icon = "spinner",
             event = "carryEntity",
             parameters = {}
@@ -35,49 +35,54 @@ Entries[#Entries + 1] = {
     options = {
         distance = { radius = 3.0 },
         isEnabled = function(pEntity, pContext)
-            return IsThisModelABicycle(pContext.model) and not IsEntityAttachedToAnyPed(pEntity) and not IsEntityAttachedToAnyPed(PlayerPedId())
+	return IsThisModelABicycle(pContext.model)
+		and not IsEntityAttachedToAnyPed(pEntity)
+		and not IsEntityAttachedToAnyPed(PlayerPedId())
         end
     }
 }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_getintrunk",
-            label = "Entrar no Porta-malas",
-            icon = "user-secret",
-            event = "vehicle:getInTrunk",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 3.0 },
-        isEnabled = function(pEntity, pContext)
-            return isVehicleDoorOpen(pEntity, getTrunkDoor(pEntity, pContext.model)) and isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model)
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_getintrunk",
+			label = "Get In Trunk",
+			icon = "user-secret",
+			event = "vehicle:getInTrunk",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 3.0 },
+		isEnabled = function(pEntity, pContext)
+			return isVehicleDoorOpen(pEntity, getTrunkDoor(pEntity, pContext.model))
+				and isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model)
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_runplate",
-            label = "Checar Placa",
-            icon = "money-check",
-            event = "clientcheckLicensePlate",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 3.0 },
-        isEnabled = function(pEntity, pContext)
-            return exports["caue-jobs"]:getJob(false, "is_police") and isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model) and not IsPedInAnyVehicle(PlayerPedId(), false)
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_runplate",
+			label = "Check Plate",
+			icon = "money-check",
+			event = "clientcheckLicensePlate",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 3.0 },
+		isEnabled = function(pEntity, pContext)
+			return exports["caue-jobs"]:getJob(false, "is_police")
+				and isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model)
+				and not IsPedInAnyVehicle(PlayerPedId(), false)
+		end,
+	},
 }
 
 -- Entries[#Entries + 1] = {
@@ -101,133 +106,145 @@ Entries[#Entries + 1] = {
 -- }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_add_fakeplate",
-            label = "Colocar Placa Falsa",
-            icon = "screwdriver",
-            event = "vehicle:addFakePlate",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 3.0 },
-        isEnabled = function(pEntity, pContext)
-            return isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model) and not IsPedInAnyVehicle(PlayerPedId(), false)
-            and exports["caue-vehicles"]:HasVehicleKey(pEntity) and exports["caue-inventory"]:hasEnoughOfItem("fakeplate", 1, false)
-            and not exports["caue-vehicles"]:GetVehicleMetadata(pEntity, "fakePlate")
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_add_fakeplate",
+			label = "Colocar Placa Falsa",
+			icon = "screwdriver",
+			event = "vehicle:addFakePlate",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 3.0 },
+		isEnabled = function(pEntity, pContext)
+			return isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model)
+				and not IsPedInAnyVehicle(PlayerPedId(), false)
+				and exports["caue-vehicles"]:HasVehicleKey(pEntity)
+				and exports["caue-inventory"]:hasEnoughOfItem("fakeplate", 1, false)
+				and not exports["caue-vehicles"]:GetVehicleMetadata(pEntity, "fakePlate")
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_remove_fakeplate",
-            label = "Remover Placa Falsa",
-            icon = "ban",
-            event = "vehicle:removeFakePlate",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 3.0 },
-        isEnabled = function(pEntity, pContext)
-            return isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model) and not IsPedInAnyVehicle(PlayerPedId(), false)
-            and exports["caue-vehicles"]:HasVehicleKey(pEntity) and exports["caue-vehicles"]:GetVehicleMetadata(pEntity, "fakePlate")
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_remove_fakeplate",
+			label = "Remover Placa Falsa",
+			icon = "ban",
+			event = "vehicle:removeFakePlate",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 3.0 },
+		isEnabled = function(pEntity, pContext)
+			return isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model)
+				and not IsPedInAnyVehicle(PlayerPedId(), false)
+				and exports["caue-vehicles"]:HasVehicleKey(pEntity)
+				and exports["caue-vehicles"]:GetVehicleMetadata(pEntity, "fakePlate")
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_examine",
-            label = "Examinar Veiculo",
-            icon = "wrench",
-            event = "caue-vehicles:examineVehicle",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 1.8, boneId = "engine" },
-        isEnabled = function(pEntity, pContext)
-            return isVehicleDoorOpen(pEntity, getEngineDoor(pEntity, pContext.model)) and isCloseToEngine(pEntity, PlayerPedId(), 1.8, pContext.model)
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_examine",
+			label = "Examinar Veiculo",
+			icon = "wrench",
+			event = "caue-vehicles:examineVehicle",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 1.8, boneId = "engine" },
+		isEnabled = function(pEntity, pContext)
+			return isVehicleDoorOpen(pEntity, getEngineDoor(pEntity, pContext.model))
+				and isCloseToEngine(pEntity, PlayerPedId(), 1.8, pContext.model)
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_refuel_station",
-            label = "Abastecer",
-            icon = "gas-pump",
-            event = "caue-vehicles:refuel",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 1.2, boneId = "wheel_lr" },
-        isEnabled = function(pEntity, pContext)
-            return polyChecks.gasStation.isInside and canRefuelHere(pEntity, polyChecks.gasStation.polyData)
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_refuel_station",
+			label = "Abastecer",
+			icon = "gas-pump",
+			event = "caue-vehicles:refuel",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 1.2, boneId = "wheel_lr" },
+		isEnabled = function(pEntity, pContext)
+			return polyChecks.gasStation.isInside and canRefuelHere(pEntity, polyChecks.gasStation.polyData)
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_refuel_jerrycan",
-            label = "Abastecer",
-            icon = "gas-pump",
-            event = "vehicle:refuel:jerryCan",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 1.2, boneId = "wheel_lr" },
-        isEnabled = function(pEntity, pContext)
-            return HasWeaponEquipped(883325847) -- WEAPON_PetrolCan
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_refuel_jerrycan",
+			label = "Abastecer",
+			icon = "gas-pump",
+			event = "vehicle:refuel:jerryCan",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 1.2, boneId = "wheel_lr" },
+		isEnabled = function(pEntity, pContext)
+			return HasWeaponEquipped(883325847) -- WEAPON_PetrolCan
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "entity",
-    group = { 2 },
-    data = {
-        {
-            id = "vehicle_putinvehicle",
-            label = "Colocar no Veiculo",
-            icon = "chevron-circle-left",
-            event = "police:forceEnter",
-            parameters = {}
-        },
-        {
-            id = "vehicle_unseatnearest",
-            label = "Remover do Veiculo",
-            icon = "chevron-circle-right",
-            event = "unseatPlayer",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 4.0 },
-        isEnabled = function(pEntity, pContext)
-            return (not (isCloseToHood(pEntity, PlayerPedId()) or isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model)) or pContext.model == GetHashKey("emsnspeedo")) and not IsPedInAnyVehicle(PlayerPedId(), false) and not pContext.flags["isCarShopVehicle"]
-        end
-    }
+	type = "entity",
+	group = { 2 },
+	data = {
+		{
+			id = "vehicle_putinvehicle",
+			label = "Put in Vehicle",
+			icon = "chevron-circle-left",
+			event = "police:forceEnter",
+			parameters = {},
+		},
+		{
+			id = "vehicle_unseatnearest",
+			label = "Unseat Nearest",
+			icon = "chevron-circle-right",
+			event = "unseatPlayer",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 4.0 },
+		isEnabled = function(pEntity, pContext)
+			return (
+					not (
+						isCloseToHood(pEntity, PlayerPedId())
+						or isCloseToBoot(pEntity, PlayerPedId(), 1.8, pContext.model)
+					) or pContext.model == GetHashKey("emsnspeedo")
+				)
+				and not IsPedInAnyVehicle(PlayerPedId(), false)
+				and not pContext.flags["isCarShopVehicle"]
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
@@ -236,7 +253,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "vehicle_keysgive",
-            label = "Dar Chave",
+            label = "Give Keys",
             icon = "key",
             event = "vehicle:giveKey",
             parameters = {}
