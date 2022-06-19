@@ -41,7 +41,7 @@ Queue.OnReady(function()
 		local whitelist, message = exports["caue-discord"]:haveWhitelist(source)
 
 		if whitelist then
-			local me = "me"
+
 			local banned, ban_time, ban_reason = IsBanned(ids["hex"])
 
 			if banned then
