@@ -14,9 +14,9 @@ inventoryDisabled = false
 
 ]]
 
-local function hasVPN()
-    return exports["caue-inventory"]:hasEnoughOfItem("vpnxj", 1, false)
-end
+-- local function hasVPN()
+--     return exports["caue-inventory"]:hasEnoughOfItem("vpnxj", 1, false)
+-- end
 
 function LoadAnimationDic(dict)
     if not HasAnimDictLoaded(dict) then
