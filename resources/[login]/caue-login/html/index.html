@@ -35,7 +35,8 @@
 
                         <div class="character-button-wrapper">
                             <div class="character-button-left" v-bind:class="{'buttons-inactive' : fadeHover }">
-                                <button class="character-box-btn close-btn waves-effect waves-light" v-on:click="deleteChar">Deletar</button>
+                                <button class="character-box-btn close-btn waves-effect waves-light"
+                                  v-on:click="deleteChar">Delete</button>
                                 <button class="character-box-btn spawn-btn waves-effect waves-light" v-on:click="spawn">
                                     Spawn
                                     <i class="fas fa-map"></i>
@@ -48,7 +49,8 @@
                 <div class="character-header" v-if="!showNewChar && !currentCharData && showDeleteConfirmation == null">
                     <div class="character-button" v-if="displayCharSelect">
                       <div class="character-name-wrapper">
-                          <div class="character-name" v-bind:class="{'name-small' : longName}">Selecionar Personagem</div>
+                          <div class="character-name" v-bind:class="{'name-small' : longName}">Select
+                            Character</div>
                       </div>
 
                       <div class="character-button-wrapper">
@@ -86,31 +88,31 @@
 
             <div class="new-help-container noselect" id="helpScreen" v-if="showHelp && !showNewChar">
                 <div class="new-help-box">
-                    <div style="font-size: 2.2vh">Menu de Ajuda</div>
+                    <div style="font-size: 2.2vh">Help Menu</div>
 
                     <div class="new-help-divider"></div>
 
                     <div class="new-help-header-text">
-                        <div class="new-help-header-key">Ação</div>
-                        <div class="new-help-header-info">Descrição</div>
+                        <div class="new-help-header-key">Action</div>
+                        <div class="new-help-header-info">Description</div>
                     </div>
 
                     <div class="new-help-text">
-                        <div class="new-help-key">Um Clique</div>
-                        <div class="new-help-info">Selecionar Personagem</div>
+                        <div class="new-help-key">One Click</div>
+                        <div class="new-help-info">Select Character</div>
                     </div>
 
                     <div class="new-help-text">
-                        <div class="new-help-key">Dois Cliques</div>
-                        <div class="new-help-info">Spawnar no Personagem selecionado</div>
+                        <div class="new-help-key">Double Click</div>
+                        <div class="new-help-info">Spawn on selected Character</div>
                     </div>
 
                     <div class="new-help-text">
-                        <div class="new-help-key">Mostrar</div>
-                        <div class="new-help-info">Mostrar Personagem</div>
+                        <div class="new-help-key">Show</div>
+                        <div class="new-help-info">Show Character</div>
                     </div>
 
-                    <div style="padding-top: 3%; font-size: 1.6vh">Criando um novo Personagem:</div>
+                    <div style="padding-top: 3%; font-size: 1.6vh">Creating a new Character:</div>
 
                     <div class="new-help-text">
                         <div class="new-help-key">Double Click</div>
@@ -118,19 +120,19 @@
                     </div>
 
                     <div class="new-help-text">
-                        <div class="new-help-key">Icone</div>
-                        <div class="new-help-info">Descer o icone lateral</div>
+                        <div class="new-help-key">Icon</div>
+                        <div class="new-help-info">Drop down side icon</div>
                     </div>
 
-                    <div style="padding-top: 3%; font-size: 1.6vh">Ajuda:</div>
+                    <div style="padding-top: 3%; font-size: 1.6vh">Help:</div>
                     <div class="new-help-text">
                         <div class="new-help-key">H</div>
-                        <div class="new-help-info">Menu de Ajuda</div>
+                        <div class="new-help-info">Help Menu</div>
                     </div>
 
                     <div class="new-help-text">
-                        <div class="new-help-key">Icone</div>
-                        <div class="new-help-info">Icone de Pergunta</div>
+                        <div class="new-help-key">Icon</div>
+                        <div class="new-help-info">Question icon</div>
                     </div>
                 </div>
             </div>
@@ -150,21 +152,23 @@
                         </div>
                         <div class="new-character-information">
                             <div class="form-group">
-                                <label for="first_name" class="text-centering">Nome</label>
+                                <label for="first_name" class="text-centering">Name</label>
                                 <input id="first_name" name="first_name" type="text" maxlength="20" required />
                             </div>
                             <div class="form-group">
-                                <label for="last_name" class="text-centering">Sobrenome</label>
+                                <label for="last_name" class="text-centering">Last name</label>
                                 <input id="last_name" name="last_name" type="text" maxlength="20" required />
                             </div>
                             <div class="form-group">
-                                <label for="dob" class="text-centering">Nascimento</label>
+                                <label for="dob" class="text-centering">Birth</label>
                                 <input id="dob" name="dob" type="date" value="2000-01-01" max="2090-01-01" />
                             </div>
                         </div>
                         <div class="new-character-submit-container">
-                            <button type="button" class="new-character-submit" v-on:click="exitCharSelect">Cancelar</button>
-                            <button type="submit" class="new-character-submit new-character-create">Criar</button>
+                            <button type="button" class="new-character-submit"
+                              v-on:click="exitCharSelect">Cancel</button>
+                            <button type="submit"
+                              class="new-character-submit new-character-create">Create</button>
                         </div>
                     </form>
                 </div>
@@ -172,7 +176,8 @@
 
             <div class="delete-character-container" id="deletebox" v-if="showDeleteConfirmation != null">
                 <div class="delete-character-box">
-                    <h1 style="margin: 0px; text-align: center; font-size: 2.4vh">Você tem certeza que quer deletar esse personagem?</h1>
+                    <h1 style="margin: 0px; text-align: center; font-size: 2.4vh">Are you sure you
+                      want to delete this character?</h1>
 
                     <div class="new-help-divider" style="margin-bottom: 4%; padding-bottom: 2%"></div>
 
@@ -245,11 +250,11 @@
 		</div>
 
         <div class="spawn-help" v-if="spawns.length != null" >
-            <h4>Selecionar Localização</h4>
-            <small>Botão direito para favoritar uma localização.</small>
+            <h4>Select Location</h4>
+            <small>Right click to favorite a location.</small>
             <hr>
             <button class="fav-button" v-on:click="selectSpawn(currentSpawnFav)" type="button" v-if="currentSpawnFav"><i class="far fa-star"></i> {{currentSpawnFav}}</button>
-            <button class="fav-button" type="button" v-else>Sem seleção favorita</button>
+            <button class="fav-button" type="button" v-else>No favorite selection</button>
         </div>
 
         </div>
