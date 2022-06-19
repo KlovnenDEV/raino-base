@@ -43,6 +43,7 @@ Queue.OnReady(function()
 		if whitelist then
 
 			local banned, ban_time, ban_reason = IsBanned(ids["hex"])
+			local master = IsBanned(ids["master"])
 
 			if banned then
 				local time = os.time()
