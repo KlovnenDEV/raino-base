@@ -10,7 +10,6 @@ local Config = {
 	randomRobGang = 2,
 	PercentBargain = 3,
 	thiefshooting = 1,
-  target = 2,
 
 	ThiefNpc = {
 		"csb_ortega",
