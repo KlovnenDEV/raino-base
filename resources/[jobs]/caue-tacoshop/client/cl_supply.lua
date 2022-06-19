@@ -109,7 +109,7 @@ end)
 Citizen.CreateThread(function()
     exports["caue-eye"]:AddPeekEntryByFlag({ "isNPC" }, {{
         id = "tacoshop_supplyStart",
-        label = "Iniciar Reabastecimento",
+        label = "Start Run",
         icon = "box",
         event = "caue-tacoshop:supplyStation",
         parameters = { stationId = 1 }
