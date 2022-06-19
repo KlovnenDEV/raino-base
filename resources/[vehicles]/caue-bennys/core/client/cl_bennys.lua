@@ -178,14 +178,14 @@ local function listenForKeypress()
         while listening do
         if IsControlJustReleased(0, 38) and not isPlyInBennys then
 				local finished = exports["caue-taskbar"]:taskBar(
-					30000,
+					2000,
 					"Entering Bennys",
 					false,
 					true,
 					nil,
 					false,
 					nil,
-					2
+					10
 				)
 				if finished == 100 then
 					TriggerEvent("bennys:enter")
