@@ -131,7 +131,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "use_atm",
-            label = "Usar ATM",
+            label = "Use ATM",
             icon = "credit-card",
             event = "financial:openUI",
             parameters = {}
