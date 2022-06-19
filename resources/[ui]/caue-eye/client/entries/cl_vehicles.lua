@@ -6,7 +6,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "vehicle_flip",
-            label = "Desvirar Veiculo",
+            label = "Flip Vehicle",
             icon = "car-crash",
             event = "FlipVehicle",
             parameters = {}
