@@ -28,7 +28,7 @@ end)
 
 AddEventHandler("caue-bicycles:buyBicycle", function(params)
     if IsAnyVehicleNearPoint(Config["Spawn"]["x"], Config["Spawn"]["y"], Config["Spawn"]["z"], 3.0) then
-        TriggerEvent("DoLongHudText", "Veiculo a caminho", 2)
+		TriggerEvent("DoLongHudText", "Vehicle on the way", 2)
         return
     end
 
