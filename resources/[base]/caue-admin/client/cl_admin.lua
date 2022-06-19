@@ -16,7 +16,7 @@ function spairs(t, order)
         end
     end
 end
-local jaw = 5
+
 function Caue.Admin.Init(self)
     self.Menu:Init()
     self:CheckForSessions()
