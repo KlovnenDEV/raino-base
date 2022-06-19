@@ -176,7 +176,7 @@ local function listenForKeypress()
 
     Citizen.CreateThread(function()
         while listening do
-            if IsControlJustReleased(0, 38) and not isPlyInBennys then
+        if IsControlJustReleased(0, 38) and not isPlyInBennys then
 				local finished = exports["caue-taskbar"]:taskBar(
 					30000,
 					"Entering Bennys",
