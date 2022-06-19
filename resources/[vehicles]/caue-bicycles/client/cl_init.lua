@@ -9,7 +9,7 @@ Citizen.CreateThread(function()
     local data = {
         {
             id = "bicycle_shop",
-            label = "Loja de Bikes",
+            label = "Bike Shop",
             icon = "bicycle",
             event = "caue-bicycles:showBicycles",
             parameters = {},
