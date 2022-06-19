@@ -22,7 +22,7 @@ AddEventHandler("caue-police:showVehicles", function(pArgs, pEntity, pContext)
             description = "$" .. vehicle.price,
             image = vehicle.image,
             children = {
-                { title = "Confirmar Compra", action = "caue-police:purchaseVehicle", params = vehicle },
+                { title = "Confirm Purchase", action = "caue-police:purchaseVehicle", params = vehicle },
             },
         })
     end

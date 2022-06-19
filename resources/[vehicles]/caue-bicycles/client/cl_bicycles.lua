@@ -18,7 +18,7 @@ AddEventHandler("caue-bicycles:showBicycles", function()
             description = "$" .. tax.total .. " Incl. " .. tax.porcentage .. "% tax",
             image = bike.image,
             children = {
-                { title = "Confirmar Compra", action = "caue-bicycles:buyBicycle", params = bike },
+                { title = "Confirm Purchase", action = "caue-bicycles:buyBicycle", params = bike },
             },
         })
     end

@@ -123,40 +123,40 @@ AddEventHandler("caue-documents:openDocuments", function()
             { title = "Mostrar", action = "caue-documents:ShowDocument", params = v.data },
             { title = "Dar cópia", action = "caue-documents:CopyDocument", params = v.data },
             { title = "Deletar", children = {
-                { title = "Confirmar exclusão", action = "caue-documents:DeleteDocument", params = v.id },
+                { title = "Confirm Deletion", action = "caue-documents:DeleteDocument", params = v.id },
             } },
         }
 
-        table.insert(mydocuments, {
-            title = v.data.headerTitle,
-            description = "Date: " .. v.data.headerDateCreated,
-            children = actions,
-        })
+		table.insert(mydocuments, {
+			title = v.data.headerTitle,
+			description = "Date: " .. v.data.headerDateCreated,
+			children = actions,
+		})
     end
 
-    table.insert(data, {
-        title = "Meus documentos pessoais",
-        description = "",
-        children = mydocuments,
-    })
+	table.insert(data, {
+		title = "Meus documentos pessoais",
+		description = "",
+		children = mydocuments,
+	})
 
-    local groups = exports["caue-base"]:getChar("groups")
+	local groups = exports["caue-base"]:getChar("groups")
     if #groups > 0 then
-        local _groups = {}
+		local _groups = {}
         for i, v in ipairs(groups) do
-            local groupdocuments = {}
-            local _groupdocuments = RPC.execute("caue-documents:getDocuments", "group", v.group)
+			local groupdocuments = {}
+			local _groupdocuments = RPC.execute("caue-documents:getDocuments", "group", v.group)
             for i2, v2 in ipairs(_groupdocuments) do
-                local actions = {
-                    { title = "Ver", action = "caue-documents:ViewDocument", params = v2.data },
-                    { title = "Mostrar", action = "caue-documents:ShowDocument", params = v2.data },
-                    { title = "Dar cópia", action = "caue-documents:CopyDocument", params = v2.data },
-                }
+				local actions = {
+					{ title = "Ver", action = "caue-documents:ViewDocument", params = v2.data },
+					{ title = "Mostrar", action = "caue-documents:ShowDocument", params = v2.data },
+					{ title = "Dar cópia", action = "caue-documents:CopyDocument", params = v2.data },
+				}
 
                 if exports["caue-groups"]:GroupRankInfo(v.group, "documents") then
                     table.insert(actions, {
                         title = "Deletar", children = {
-                            { title = "Confirmar exclusão", action = "caue-documents:DeleteDocument", params = v2.id },
+                            { title = "Confirm Deletion", action = "caue-documents:DeleteDocument", params = v2.id },
                         }
                     })
                 end
