@@ -11,7 +11,7 @@ function spairs(t, order)
 	else
 		table.sort(keys)
 	end
-	local b = "ss"
+
 	local i = 0
 	return function()
 		i = i + 1
@@ -129,18 +129,15 @@ function Caue.Admin.BeginAFK(self, stop)
 
 				local string =
 					[[<center><span style="font-size:28px;color:red;">You have been detected as AFK. Please type the message below within 5 minutes!<br /><hr style="border-color: rgba(255, 0, 0, 0.5);">%s</span></center>]]
-				TriggerEvent(
-					"pNotify:SendNotification",
-					{
-						text = string.format(string, afk.stringToType),
-						layout = "top",
-						timeout = 5000,
-						type = "error",
-						animation = { open = "gta_effects_fade_in", close = "gta_effects_fade_out" },
-						queue = "afk",
-						progressBar = false,
-					}
-				)
+				TriggerEvent("pNotify:SendNotification", {
+					text = string.format(string, afk.stringToType),
+					layout = "top",
+					timeout = 5000,
+					type = "error",
+					animation = { open = "gta_effects_fade_in", close = "gta_effects_fade_out" },
+					queue = "afk",
+					progressBar = false,
+				})
 			end
 
 			if curTime - beginTime >= 300000 then
