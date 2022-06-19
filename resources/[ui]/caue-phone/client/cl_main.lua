@@ -159,9 +159,9 @@ end)
 
 RegisterNUICallback("btnMute", function()
     if phoneNotifications then
-        TriggerEvent("DoLongHudText", "Notificações Desativadas")
+		TriggerEvent("DoLongHudText", "Notifications Off")
     else
-        TriggerEvent("DoLongHudText", "Notificações Ativadas")
+		TriggerEvent("DoLongHudText", "Notifications Enabled")
     end
 
     phoneNotifications = not phoneNotifications

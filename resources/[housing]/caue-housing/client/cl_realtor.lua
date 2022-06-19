@@ -87,7 +87,7 @@ function InteractionPressed(pRadial)
 
     if not isGov() and Housing.currentOwned[propertyID] == nil and Housing.currentKeys[propertyId] == nil then
         if (Housing.currentHousingLocks == nil or Housing.currentHousingLocks[propertyID] == nil) and #(vec3FromVec4(Housing.info[propertyID]["pos"])-player) <= 4.5 and not hasBeenRobbed then
-            TriggerEvent("DoLongHudText","Propriedade trancada",2)
+            TriggerEvent("DoLongHudText","Property locked",2)
             return
         end
     end
@@ -116,7 +116,7 @@ function InteractionPressed(pRadial)
                             Housing.func.enterBuilding(propertyID,pos.backdoor_coordinates.internal)
                         end
                     else
-                        TriggerEvent("DoLongHudText","Propriedade bloqueada, você não pode acessar.",2)
+                        TriggerEvent("DoLongHudText","Property locked, you cannot access.",2)
                     end
                 end
 
@@ -127,7 +127,7 @@ function InteractionPressed(pRadial)
         if #(vec3FromVec4(Housing.info[propertyID]["pos"])-player) <= Housing.ranges.doorEnterRange then
             if not isGov() then
                 if Housing.currentHousingLocks == nil or Housing.currentHousingLocks[propertyID] == nil then
-                    TriggerEvent("DoLongHudText","Propriedade trancada",2)
+                    TriggerEvent("DoLongHudText","Property locked",2)
                     return
                 end
             end
@@ -139,7 +139,7 @@ function InteractionPressed(pRadial)
                     if lockdownCheck(propertyID) then
                         Housing.func.enterBuilding(propertyID)
                     else
-                        TriggerEvent("DoLongHudText","Propriedade bloqueada, você não pode acessar",2)
+                        TriggerEvent("DoLongHudText","Property locked, you cannot access",2)
                     end
                 end
             end
@@ -203,12 +203,12 @@ function enterEdit(pPropertyId)
     local propertyID = pPropertyId
 
     if propertyID == 0 or propertyID == "" then
-        TriggerEvent("DoLongHudText", "falha ao buscar propriedade", false)
+        TriggerEvent("DoLongHudText", "failed to fetch property", false)
         return
     end
 
     if Housing.typeInfo[Housing.info[propertyID].model].cat == "buisness" then
-        TriggerEvent("DoLongHudText", "não é possível editar uma propriedade comercial", 2)
+        TriggerEvent("DoLongHudText", "cannot edit a business property", 2)
         return
     end
 
@@ -220,7 +220,7 @@ function enterEdit(pPropertyId)
         if isResult == false then
             if Housing.currentOwned[propertyID] == nil and Housing.currentKeys[propertyID] == nil then
                 Housing.currentlyEditing = nil
-                TriggerEvent("DoLongHudText", "Você não possui essa propriedade.", 2)
+                TriggerEvent("DoLongHudText", "You do not own this property.", 2)
                 return
             end
         end
@@ -230,7 +230,7 @@ function enterEdit(pPropertyId)
         end
 
         if Housing.currentHousingLockdown ~= nil and Housing.currentHousingLockdown[propertyID] and isResult == false then
-            TriggerEvent("DoLongHudText", "Não é possível editar uma propriedade bloquada.", 2)
+            TriggerEvent("DoLongHudText", "Unable to edit a locked property.", 2)
             return
         end
 
@@ -276,7 +276,7 @@ function enterEdit(pPropertyId)
 
         TriggerEvent("caue-housing:edit")
     else
-        TriggerEvent("DoLongHudText", "Muito longe da propriedade.", 2)
+        TriggerEvent("DoLongHudText", "Too far from the property.", 2)
     end
 end
 
@@ -298,22 +298,22 @@ end
 
 function setGarage()
     if Housing.currentlyEditing == false then
-        TriggerEvent("DoLongHudText", "Fora do modo edição", 2)
+        TriggerEvent("DoLongHudText", "Out of edit mode", 2)
         return
     end
 
     if Housing.currentOwned[Housing.currentlyEditing] == nil then
-        TriggerEvent("DoLongHudText", "você não possui essa propriedade", 2)
+        TriggerEvent("DoLongHudText", "you don't own this property", 2)
         return
     end
 
     if not hasCorrectFlags("canHaveGarage",Housing.currentlyEditing) then
-        TriggerEvent("DoLongHudText", "Indisponível para a propriedade.", 2)
+        TriggerEvent("DoLongHudText", "Unavailable for the property.", 2)
         return
     end
 
     if not IsPedInAnyVehicle(PlayerPedId(), false) then
-        TriggerEvent("DoLongHudText", "Deve ser feito dentro do veículo.", 2)
+        TriggerEvent("DoLongHudText", "Must be done inside the vehicle.", 2)
         return
     end
 
@@ -328,19 +328,19 @@ function setGarage()
 
         local finished = RPC.execute("updateCurrentSelected", Housing.currentlyEditing, Housing.currentHousingInteractions, Housing.hasEditedOrigin)
         if finished then
-            TriggerEvent("DoLongHudText", "Garagem movida")
+            TriggerEvent("DoLongHudText", "Garage moved")
         end
     end
 end
 
 function setInventory()
     if Housing.currentlyEditing == false then
-        TriggerEvent("DoLongHudText", "Fora do modo edição", 2)
+        TriggerEvent("DoLongHudText", "Out of edit mode", 2)
         return
     end
 
     if Housing.currentOwned[Housing.currentlyEditing] == nil then
-        TriggerEvent("DoLongHudText", "você não possui a propriedade", 2)
+        TriggerEvent("DoLongHudText", "you don't own the property", 2)
         return
     end
 
@@ -350,7 +350,7 @@ function setInventory()
         local vector = (playerCoords - buildingVector)
 
         if not canPlaceInteractionPoint("inventory_offset", vector) then
-            TriggerEvent("DoLongHudText", "Local inválido", 2)
+            TriggerEvent("DoLongHudText", "Invalid location", 2)
             return
         end
 
@@ -362,10 +362,10 @@ function setInventory()
 
         local finished = RPC.execute("updateCurrentSelected", Housing.currentlyEditing, Housing.currentHousingInteractions, Housing.hasEditedOrigin)
         if finished then
-            TriggerEvent("DoLongHudText", "Inventário movido")
+            TriggerEvent("DoLongHudText", "Inventory moved")
         end
     else
-        TriggerEvent("DoLongHudText", "fora da propriedade", 2)
+        TriggerEvent("DoLongHudText", "off the property", 2)
     end
 end
 
@@ -376,7 +376,7 @@ function placeBench(dropInventory)
     if dropInventory and hasBenches then
         local invVector = Housing.currentHousingInteractions.inventory_offset
         if invVector == nil then
-            TriggerEvent("DoLongHudText", "Vetor não encontrado", 2)
+            TriggerEvent("DoLongHudText", "vector not found", 2)
             return
         end
 
@@ -413,29 +413,29 @@ function placeBench(dropInventory)
 
             local finished = RPC.execute("updateCurrentSelected",Housing.currentlyEditing,Housing.currentHousingInteractions,Housing.hasEditedOrigin)
             if finished then
-                TriggerEvent("DoLongHudText", "Craft alterado")
+                TriggerEvent("DoLongHudText", "Craft moved")
             end
         else
-            TriggerEvent("DoLongHudText", "fora da propriedade", 2)
+            TriggerEvent("DoLongHudText", "off the property", 2)
         end
     else
-        TriggerEvent("DoLongHudText", "Mesa de craft não encontrada", 2)
+        TriggerEvent("DoLongHudText", "Crafting table not found", 2)
     end
 end
 
 function setBackdoor()
     if Housing.currentlyEditing == false then
-        TriggerEvent("DoLongHudText", "Fora do modo edição", 2)
+        TriggerEvent("DoLongHudText", "Out of edit mode", 2)
         return
     end
 
     if Housing.currentOwned[Housing.currentlyEditing] == nil then
-        TriggerEvent("DoLongHudText", "você não possui a propriedade", 2)
+        TriggerEvent("DoLongHudText", "you don't own the property", 2)
         return
     end
 
     if not hasCorrectFlags("canHaveBackDoor",Housing.currentlyEditing) then
-        TriggerEvent("DoLongHudText", "Indisponível para a propriedade.", 2)
+        TriggerEvent("DoLongHudText", "Unavailable for the property.", 2)
         return
     end
 
@@ -448,7 +448,7 @@ function setBackdoor()
 
             local finished = RPC.execute("updateCurrentSelected", Housing.currentlyEditing, Housing.currentHousingInteractions, Housing.hasEditedOrigin)
             if finished then
-                TriggerEvent("DoLongHudText", "Porta dos fundos externa movida")
+                TriggerEvent("DoLongHudText", "External back door moved")
             end
         end
     else
@@ -456,7 +456,7 @@ function setBackdoor()
         local vector = (playerCoords - buildingVector)
 
         if not canPlaceInteractionPoint("backdoor_offset_internal",vector) then
-            TriggerEvent("DoLongHudText", "Local inválido", 2)
+            TriggerEvent("DoLongHudText", "Invalid location", 2)
             return
         end
 
@@ -465,7 +465,7 @@ function setBackdoor()
 
         local finished = RPC.execute("updateCurrentSelected",Housing.currentlyEditing,Housing.currentHousingInteractions,Housing.hasEditedOrigin)
         if finished then
-            TriggerEvent("DoLongHudText", "Porta dos fundos interna movida")
+            TriggerEvent("DoLongHudText", "Internal back door moved")
         end
     end
 
@@ -473,17 +473,17 @@ end
 
 function setCharChanger()
     if Housing.currentlyEditing == false then
-        TriggerEvent("DoLongHudText", "Fora do modo edição", 2)
+        TriggerEvent("DoLongHudText", "Out of edit mode", 2)
         return
     end
 
     if Housing.currentOwned[Housing.currentlyEditing] == nil then
-        TriggerEvent("DoLongHudText", "você não possui a propriedade", 2)
+        TriggerEvent("DoLongHudText", "you don't own the property", 2)
         return
     end
 
     if not hasCorrectFlags("canHaveCharSelect",Housing.currentlyEditing) then
-        TriggerEvent("DoLongHudText", "Indisponível para a propriedade.", 2)
+        TriggerEvent("DoLongHudText", "Unavailable for the property.", 2)
         return
     end
 
@@ -493,7 +493,7 @@ function setCharChanger()
         local vector = (playerCoords - buildingVector)
 
         if not canPlaceInteractionPoint("charChanger_offset", vector) then
-            TriggerEvent("DoLongHudText", "Local inválido", 2)
+            TriggerEvent("DoLongHudText", "Invalid location", 2)
             return
         end
 
@@ -502,31 +502,31 @@ function setCharChanger()
 
         local finished = RPC.execute("updateCurrentSelected", Housing.currentlyEditing, Housing.currentHousingInteractions, Housing.hasEditedOrigin)
         if finished then
-            TriggerEvent("DoLongHudText", "Alteração de personagem movida")
+            TriggerEvent("DoLongHudText", "Moved character change")
         end
     else
-        TriggerEvent("DoLongHudText", "fora da casa", 2)
+        TriggerEvent("DoLongHudText", "out of the house", 2)
     end
 end
 
 function openFurniture()
     if Housing.currentlyEditing == false then
-        TriggerEvent("DoLongHudText", "Fora do modo edição", 2)
+        TriggerEvent("DoLongHudText", "Out of edit mode", 2)
         return
     end
 
     if Housing.currentKeys[Housing.currentlyEditing] == nil and Housing.currentOwned[Housing.currentlyEditing] == nil then
-        TriggerEvent("DoLongHudText", "Você não possui as chaves da propriedade", 2)
+        TriggerEvent("DoLongHudText", "You do not have the property keys", 2)
         return
     end
 
     if not hasCorrectFlags("canHaveFurniture", Housing.currentlyEditing) then
-        TriggerEvent("DoLongHudText", "Indisponível para a propriedade.", 2)
+        TriggerEvent("DoLongHudText", "Unavailable for the property.", 2)
         return
     end
 
     if not Housing.currentlyInsideBuilding then
-        TriggerEvent("DoLongHudText", "você não está dentro da propriedade", 2)
+        TriggerEvent("DoLongHudText", "you are not inside the property", 2)
         return
     end
 
@@ -678,7 +678,7 @@ function canPlaceInteractionPoint(nameIncoming,pos)
     end
 
     if not canPlace then
-        TriggerEvent("DoLongHudText", "Não é possível colocar o ponto aqui, pode estar muito perto de outro ponto.", 2)
+        TriggerEvent("DoLongHudText", "It is not possible to place the point here, it may be too close to another point.", 2)
     end
 
     return canPlace
@@ -731,13 +731,13 @@ AddEventHandler("caue-housing:sell", function()
     end
 
     if not isPropertyActive(propertyId) then
-        TriggerEvent("DoLongHudText", "A propriedade não está a venda", 2)
+        TriggerEvent("DoLongHudText", "The property is not for sale", 2)
         return
     end
 
     local propertyZone = Housing.func.getPropertyZoneFromID(propertyId)
     if propertyZone == nil then
-        TriggerEvent("DoLongHudText", "Falha ao buscar propriedade", 2)
+        TriggerEvent("DoLongHudText", "Failed to fetch property", 2)
         return
     end
 
@@ -772,7 +772,7 @@ AddEventHandler("caue-housing:sellTo", function(pParams)
 	if input["cid"] then
 		local cid = tonumber(input["cid"])
 		if not cid or cid < 1 then
-			TriggerEvent("DoLongHudText", "Número inválido", 2)
+			TriggerEvent("DoLongHudText", "Invalid number", 2)
 			return
 		end
 
@@ -809,13 +809,13 @@ AddEventHandler("caue-housing:rent", function()
     end
 
     if not isPropertyActive(propertyId) then
-        TriggerEvent("DoLongHudText", "A propriedade não está a venda", 2)
+        TriggerEvent("DoLongHudText", "The property is not for sale", 2)
         return
     end
 
     local propertyZone = Housing.func.getPropertyZoneFromID(propertyId)
     if propertyZone == nil then
-        TriggerEvent("DoLongHudText", "Falha ao buscar propriedade", 2)
+        TriggerEvent("DoLongHudText", "Failed to fetch property", 2)
         return
     end
 
@@ -926,7 +926,7 @@ AddEventHandler("caue-housing:edit", function()
             local isComplete, _propertyId, dist, zone = Housing.func.findClosestProperty()
 
             if not isComplete then
-                TriggerEvent("DoLongHudText", "Muito distante da propriedade.", 2)
+                TriggerEvent("DoLongHudText", "Too far from the property.", 2)
                 return
             end
 
@@ -934,7 +934,7 @@ AddEventHandler("caue-housing:edit", function()
         end
 
         if Housing.currentOwned[propertyId] == nil and Housing.currentKeys[propertyId] == nil then
-            TriggerEvent("DoLongHudText", "Você não possui essa propriedade.", 2)
+            TriggerEvent("DoLongHudText", "You do not own this property.", 2)
             return
         end
 
@@ -980,7 +980,7 @@ AddEventHandler("housing:inventory", function()
 
     if max.canHaveInventory then
         if not lockdownCheck(propertyID) then
-            TriggerEvent("DoLongHudText", "Propriedade bloqueada, você não pode abrir o inventário", 2)
+            TriggerEvent("DoLongHudText", "Property locked, you can't open inventory", 2)
             return
         end
 
@@ -1045,7 +1045,7 @@ RegisterNetEvent("housing:crafting")
 AddEventHandler("housing:crafting", function()
     local propertyID = Housing.currentHousingInteractions.id
     if Housing.currentOwned[propertyID] == nil then
-        TriggerEvent("DoLongHudText", "Só o dono pode utilizar isso.", 2)
+        TriggerEvent("DoLongHudText", "Only the owner can use this.", 2)
         return
     end
 
@@ -1057,7 +1057,7 @@ AddEventHandler("housing:crafting", function()
 
     local progressionData = 0
     if progressionData == nil or progressionData < 1 then
-        TriggerEvent("DoLongHudText", "você não possui o conhecimento para isso" , 2)
+        TriggerEvent("DoLongHudText", "you don't have the knowledge for it" , 2)
         return
     end
 

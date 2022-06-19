@@ -19,7 +19,7 @@ AddEventHandler("caue-inventory:itemUsed", function(item, info)
 
 		if musicPlaying == false or musicPlaying ~= url then
 			if not exports["caue-inventory"]:hasEnoughOfItem("musicwalkman", 1, false, true) then
-				TriggerEvent("DoLongHudText", "Você precisa de um walkman!", 2)
+				TriggerEvent("DoLongHudText", "You need a walkman!", 2)
 				return
 			end
 
@@ -40,18 +40,20 @@ AddEventHandler("caue-inventory:itemUsed", function(item, info)
 end)
 
 AddEventHandler("caue-inventory:itemCheck", function(itemId, hasItem)
-    if not itemId == "musicwalkman" then return end
+	if not itemId == "musicwalkman" then
+		return
+	end
 
-    if not hasItem and musicPlaying ~= false then
-        musicPlaying = false
+	if not hasItem and musicPlaying ~= false then
+		musicPlaying = false
 		SetNuiFocus(false, false)
 		SendNUIMessage({ show = false })
-    end
+	end
 end)
 
 AddEventHandler("caue-music:addMusicEntry", function(pParams)
 	if exports["caue-groups"]:GroupRank(pParams.group) < 1 then
-	  	TriggerEvent("DoLongHudText", "Você não pode fazer isso.", 2)
+		TriggerEvent("DoLongHudText", "You can not do that.", 2)
 	  	return
 	end
 
@@ -80,7 +82,7 @@ end)
 
 AddEventHandler("caue-music:createMusicTapes", function(pParams)
 	if exports["caue-groups"]:GroupRank(pParams.group) < 1 then
-		TriggerEvent("DoLongHudText", "Você não pode fazer isso.", 2)
+		TriggerEvent("DoLongHudText", "You can not do that.", 2)
 		return
   	end
 

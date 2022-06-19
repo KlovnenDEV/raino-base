@@ -95,7 +95,7 @@ function hasEnoughOfItem(itemid, amount, shouldReturnText, checkQuality, metaInf
     if shouldReturnText == nil then shouldReturnText = true end
     if itemid == nil or itemid == 0 or amount == nil or amount == 0 then
         if shouldReturnText then
-            TriggerEvent("DoLongHudText","Parece que não tenho " .. itemid .. " comigo.",2)
+            TriggerEvent("DoLongHudText","I don't seem to have " .. itemid .. " with me.",2)
         end
         return false
     end
@@ -107,7 +107,7 @@ function hasEnoughOfItem(itemid, amount, shouldReturnText, checkQuality, metaInf
         return true
     end
     if (shouldReturnText) then
-        TriggerEvent("DoLongHudText","Eu não tenho mais isso...",2)
+        TriggerEvent("DoLongHudText","I don't have it anymore...",2)
     end
     return false
 end
@@ -122,7 +122,7 @@ function isValidUseCase(itemID, isWeapon)
             if IsEntityInAir(playerVeh) then
                 Wait(1000)
                 if IsEntityInAir(playerVeh) then
-                    TriggerEvent("DoLongHudText", "Parece que você está voando.", 2)
+                    TriggerEvent("DoLongHudText", "It looks like you're flying.", 2)
                     return false
                 end
             end
@@ -135,13 +135,13 @@ function isValidUseCase(itemID, isWeapon)
             Wait(700)
             local plyCoords = GetEntityCoords(player, 0)
             if #(targetCoords - plyCoords) > 1.3 then
-                TriggerEvent("DoLongHudText", "Não pode usar isso enquanto está nadando.", 2)
+                TriggerEvent("DoLongHudText", "You cannot use this while swimming.", 2)
                 return false
             end
         end
 
         if IsPedSwimmingUnderWater(player) then
-            TriggerEvent("DoLongHudText", "Não pode usar isso enquanto submerso.", 2)
+            TriggerEvent("DoLongHudText", "Cannot use this while submerged.", 2)
             return false
         end
     end
@@ -300,7 +300,7 @@ AddEventHandler("RunUseItem", function(itemid, slot, inventoryName, isWeapon, pa
 
     if ItemInfo.quality == nil then return end
     if ItemInfo.quality < 1 then
-        TriggerEvent("DoLongHudText","Esse item está quebrado",2)
+        TriggerEvent("DoLongHudText","This item is broken",2)
         if isWeapon then
             TriggerEvent("brokenWeapon")
         end
@@ -319,7 +319,7 @@ AddEventHandler("RunUseItem", function(itemid, slot, inventoryName, isWeapon, pa
     justUsed = true
 
     if (not hasEnoughOfItem(itemid,1,false)) then
-        TriggerEvent("DoLongHudText","Parece que você não tem esse item...?",2)
+        TriggerEvent("DoLongHudText","Looks like you don't have that item...?",2)
         justUsed = false
         retardCounter = 0
         lastCounter = 0
@@ -389,7 +389,7 @@ AddEventHandler("RunUseItem", function(itemid, slot, inventoryName, isWeapon, pa
         -- local info = json.decode(ItemInfo.information)
 
         -- if info["_type"] == "tvbox" then
-        --     TriggerEvent("DoLongHudText", "Essa TV Box esta quebrada! Quem te vendeu isso?")
+        --     TriggerEvent("DoLongHudText", "This TV Box is broken! Who sold you this?")
         -- end
     end
 
@@ -465,7 +465,7 @@ AddEventHandler("RunUseItem", function(itemid, slot, inventoryName, isWeapon, pa
                 TriggerEvent("UseBodyArmor")
                 remove = true
             else
-                TriggerEvent("DoLongHudText","Você não pode usar colete, porque está incapacitado.")
+                TriggerEvent("DoLongHudText","You can't wear a vest, because you're incapacitated.")
             end
         end
     end
@@ -487,7 +487,7 @@ AddEventHandler("RunUseItem", function(itemid, slot, inventoryName, isWeapon, pa
     end
 
     if (itemid == "ciggy") then
-        local finished = exports["caue-taskbar"]:taskBar(1000,"Acendendo",false,false,playerVeh)
+        local finished = exports["caue-taskbar"]:taskBar(1000,"lighting",false,false,playerVeh)
         if (finished == 100) then
             Wait(300)
             TriggerEvent("animation:PlayAnimation","smoke")

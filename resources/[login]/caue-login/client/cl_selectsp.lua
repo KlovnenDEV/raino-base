@@ -5,16 +5,16 @@
 ]]
 
 Spawn.defaultSpawns = {
-	[1] =  { ["pos"] = vector4(130.59, -1739.06, 30.11, 320.28), ["info"] = " Davis Train Station"},
-	[2] =  { ["pos"] = vector4(85.47, -1404.68, 29.41, 293.58), ["info"] = " Strawberry Avenue"},
-	[3] =  { ["pos"] = vector4(-232.95, -1490.77, 32.97, 269.63), ["info"] = " Chamberlain Hills"},
-	[4] =  { ["pos"] = vector4(1211.68, -1389.85, 35.38, 186.1), ["info"] = " El Burro Gas Station"},
+	[1] = { ["pos"] = vector4(130.59, -1739.06, 30.11, 320.28), ["info"] = " Davis Train Station" },
+	[2] = { ["pos"] = vector4(85.47, -1404.68, 29.41, 293.58), ["info"] = " Strawberry Avenue" },
+	[3] = { ["pos"] = vector4(-232.95, -1490.77, 32.97, 269.63), ["info"] = " Chamberlain Hills" },
+	[4] = { ["pos"] = vector4(1211.68, -1389.85, 35.38, 186.1), ["info"] = " El Burro Gas Station" },
 }
 
 Spawn.motel = {
-	[1] = { ["pos"] = vector4(367.35, -1802.38, 29.08, 141.56), ["info"] = " Apartments 1"},
-	[2] = { ["pos"] = vector4(-1236.27,-860.84,12.91,213.56), ["info"] = " Apartments 2"},
-	[3] = { ["pos"] = vector4(173.96, -631.29, 47.08, 303.12), ["info"] = " Apartments 3"}
+	[1] = { ["pos"] = vector4(367.35, -1802.38, 29.08, 141.56), ["info"] = " Apartments 1" },
+	[2] = { ["pos"] = vector4(-1236.27, -860.84, 12.91, 213.56), ["info"] = " Apartments 2" },
+	[3] = { ["pos"] = vector4(173.96, -631.29, 47.08, 303.12), ["info"] = " Apartments 3" },
 }
 
 Spawn.Crash = nil
@@ -34,13 +34,13 @@ cam = 0
 ]]
 
 function round(number, decimals)
-    local power = 10^decimals
-    return math.floor(number * power) / power
+	local power = 10 ^ decimals
+	return math.floor(number * power) / power
 end
 
 function Login.SetTestCam()
 	--LoginSafe.Cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
-	local camCoords = {-3968.85, 2015.93,502.22 }
+	local camCoords = { -3968.85, 2015.93, 502.22 }
 	SetCamRot(LoginSafe.Cam, -90.0, 0.0, 250.0, 2)
 	SetCamCoord(LoginSafe.Cam, camCoords[1], camCoords[2], camCoords[3])
 	StopCamShaking(LoginSafe.Cam, true)
@@ -52,7 +52,7 @@ end
 function Spawn.getDevSpawn()
 	local spawn = nil
 
-	local devspawn = exports["storage"]:tryGet("vector4","devspawn")
+	local devspawn = exports["storage"]:tryGet("vector4", "devspawn")
 	if devspawn then
 		spawn = { ["pos"] = devspawn, ["info"] = "Dev Spawn" }
 	end
@@ -63,11 +63,15 @@ end
 function Spawn.createDefaultData(housing_id)
 	local defaultData = nil
 
-	if Spawn.housingCoords == nil or Spawn.housingCoords[housing_id] == nil then return end
-	if Spawn.housingCoords[housing_id].assigned then return end
+	if Spawn.housingCoords == nil or Spawn.housingCoords[housing_id] == nil then
+		return
+	end
+	if Spawn.housingCoords[housing_id].assigned then
+		return
+	end
 
 	local housing = Spawn.housingCoords[housing_id]
-	defaultData = {["pos"] = housing["pos"], ["info"] = housing["street"] .. " House"}
+	defaultData = { ["pos"] = housing["pos"], ["info"] = housing["street"] .. " House" }
 
 	return defaultData
 end
@@ -86,7 +90,7 @@ function Spawn.selectedSpawn(spawnInfo)
 	EnableAllControlActions(0)
 
 	Login.DeleteCamera()
-	SetNuiFocus(false,false)
+	SetNuiFocus(false, false)
 
 	TriggerEvent("insideSpawn", false)
 	TriggerEvent("caue-hud:toggle", true)
@@ -98,10 +102,10 @@ function Spawn.selectedSpawn(spawnInfo)
 	else
 		local pos = Spawn.obtainWorldSpawnPos(spawnInfo)
 		if pos then
-			SetEntityCoords(PlayerPedId(),pos.x,pos.y,pos.z)
-			SetEntityHeading(PlayerPedId(),pos.w)
+			SetEntityCoords(PlayerPedId(), pos.x, pos.y, pos.z)
+			SetEntityHeading(PlayerPedId(), pos.w)
 
-			doCamera(pos.x,pos.y,pos.z)
+			doCamera(pos.x, pos.y, pos.z)
 			DoScreenFadeOut(2)
 
 			Login.DeleteCamera()
@@ -112,10 +116,10 @@ function Spawn.selectedSpawn(spawnInfo)
 		elseif spawnInfo == "Última Localização" then
 			local pos = Spawn.Crash
 
-			SetEntityCoords(PlayerPedId(),pos.x,pos.y,pos.z)
-			SetEntityHeading(PlayerPedId(),pos.w)
+			SetEntityCoords(PlayerPedId(), pos.x, pos.y, pos.z)
+			SetEntityHeading(PlayerPedId(), pos.w)
 
-			doCamera(pos.x,pos.y,pos.z)
+			doCamera(pos.x, pos.y, pos.z)
 			DoScreenFadeOut(2)
 
 			Login.DeleteCamera()
@@ -126,16 +130,16 @@ function Spawn.selectedSpawn(spawnInfo)
 		else
 			local pos = Spawn.obtainHousingPos(spawnInfo)
 			if pos then
-				doCamera(pos.x,pos.y,pos.z)
+				doCamera(pos.x, pos.y, pos.z)
 				DoScreenFadeOut(2)
 
 				Login.DeleteCamera()
-				SetEntityCoords(PlayerPedId(),pos.x,pos.y,pos.z)
-				SetEntityHeading(PlayerPedId(),pos.w)
+				SetEntityCoords(PlayerPedId(), pos.x, pos.y, pos.z)
+				SetEntityHeading(PlayerPedId(), pos.w)
 				Wait(200)
 
 				DoScreenFadeIn(2500)
-				TriggerEvent("housing:playerSpawned",spawnInfo)
+				TriggerEvent("housing:playerSpawned", spawnInfo)
 
 				Citizen.CreateThread(function()
 					local checkStart = GetCloudTimeAsInt() + 60
@@ -155,28 +159,28 @@ function Spawn.selectedSpawn(spawnInfo)
 				end)
 			end
 		end
- 	end
+	end
 
 	isNear = false
- 	Spawn.tempHousing  = {}
-	Spawn.tempGroups  = {}
+	Spawn.tempHousing = {}
+	Spawn.tempGroups = {}
 end
 
 function Spawn.overwriteSpawn(overwrite)
-	local pos = vector4(1802.51,2607.19,46.01,93.0) -- default prison
+	local pos = vector4(1802.51, 2607.19, 46.01, 93.0) -- default prison
 
 	if overwrite == "maxsec" then
-		pos = vector4(1690.75,2593.14,45.61,178.75)
+		pos = vector4(1690.75, 2593.14, 45.61, 178.75)
 	elseif overwrite == "rehab" then
-		pos = vector4(-1475.86,884.47,182.93,93.0)
+		pos = vector4(-1475.86, 884.47, 182.93, 93.0)
 	elseif overwrite == "jail" then
-		pos = vector4(1802.51,2607.19,46.01,93.0)
+		pos = vector4(1802.51, 2607.19, 46.01, 93.0)
 	end
 
 	Login.DeleteCamera()
-	SetNuiFocus(false,false)
- 	doCamera(pos.x,pos.y,pos.z)
- 	Wait(300)
+	SetNuiFocus(false, false)
+	doCamera(pos.x, pos.y, pos.z)
+	Wait(300)
 	DoScreenFadeOut(2)
 	Login.DeleteCamera()
 
@@ -186,8 +190,8 @@ function Spawn.overwriteSpawn(overwrite)
 
 	Wait(200)
 
-	SetEntityInvincible(PlayerPedId(),false)
-	FreezeEntityPosition(PlayerPedId(),false)
+	SetEntityInvincible(PlayerPedId(), false)
+	FreezeEntityPosition(PlayerPedId(), false)
 	SetEntityVisible(PlayerPedId(), true)
 	EnableAllControlActions(0)
 
@@ -197,23 +201,25 @@ function Spawn.overwriteSpawn(overwrite)
 	TriggerEvent("caue-hud:toggle", true)
 end
 
-function doCamera(x,y,z)
+function doCamera(x, y, z)
 	DoScreenFadeOut(1)
-	if(not DoesCamExist(cam)) then
+	if not DoesCamExist(cam) then
 		cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
 	end
 
 	i = 3200
 	SetFocusArea(x, y, z, 0.0, 0.0, 0.0)
-	SetCamActive(cam,  true)
-	RenderScriptCams(true,  false,  0,  true,  true)
+	SetCamActive(cam, true)
+	RenderScriptCams(true, false, 0, true, true)
 	DoScreenFadeIn(1500)
 	local camAngle = -90.0
 	while i > 1 do
 		local factor = i / 50
-		if i < 1 then i = 1 end
+		if i < 1 then
+			i = 1
+		end
 		i = i - factor
-		SetCamCoord(cam, x,y,z+i)
+		SetCamCoord(cam, x, y, z + i)
 		if i < 1200 then
 			DoScreenFadeIn(600)
 		end
@@ -221,23 +227,25 @@ function doCamera(x,y,z)
 			camAngle = i - i - i
 		end
 		SetCamRot(cam, camAngle, 0.0, 0.0)
-		Citizen.Wait(2/i)
+		Citizen.Wait(2 / i)
 	end
 end
 
 function Spawn.getCrash(exitData)
 	local spawn = nil
 	if exitData then
-		local vec3 = vector3(exitData.x,exitData.y,exitData.z)
-		local newPos = vector4(exitData.x,exitData.y,exitData.z,0.0)
+		local vec3 = vector3(exitData.x, exitData.y, exitData.z)
+		local newPos = vector4(exitData.x, exitData.y, exitData.z, 0.0)
 		local canUse = true
 
-		if #(vec3-vector3(0.0,0.0,0.0)) < 10 then canUse = false end
+		if #(vec3 - vector3(0.0, 0.0, 0.0)) < 10 then
+			canUse = false
+		end
 		-- if vec3.z < 0.0 then canUse = false end
 		-- if GetInteriorAtCoords(vec3) ~= 0 then canUse = false end
 
 		if canUse then
-			spawn = { ["pos"] = newPos, ["info"] = "Última Localização"}
+			spawn = { ["pos"] = newPos, ["info"] = "Última Localização" }
 			Spawn.Crash = exitData
 		end
 	end
@@ -268,7 +276,7 @@ AddEventHandler("spawn:clientSpawnData", function(spawnData)
 	runGameplay()
 
 	TriggerServerEvent("SpawnEventsServer")
-    TriggerEvent("SpawnEventsClient")
+	TriggerEvent("SpawnEventsClient")
 
 	if spawnData.overwrites ~= nil then
 		if spawnData.overwrites == "jail" or spawnData.overwrites == "maxsec" or spawnData.overwrites == "rehab" then
@@ -282,7 +290,7 @@ AddEventHandler("spawn:clientSpawnData", function(spawnData)
 
 				SetEntityMaxHealth(PlayerPedId(), 200)
 				SetPedMaxHealth(PlayerPedId(), 200)
-  				SetPlayerMaxArmour(PlayerId(), 60)
+				SetPlayerMaxArmour(PlayerId(), 60)
 				SetEntityHealth(PlayerPedId(), 200)
 
 				TriggerEvent("player:receiveItem", "idcard", 1)
@@ -316,14 +324,14 @@ AddEventHandler("spawn:clientSpawnData", function(spawnData)
 	end
 
 	Spawn.tempHousing = {}
-	for k,v in pairs(spawnData.houses) do
+	for k, v in pairs(spawnData.houses) do
 		local data = Spawn.createDefaultData(k)
 		currentSpawns[#currentSpawns + 1] = data
 		table.insert(Spawn.tempHousing, data)
 		currentCheckList[k] = true
 	end
 
-	for k,v in pairs(spawnData.keys) do
+	for k, v in pairs(spawnData.keys) do
 		if not currentCheckList[k] then
 			local data = Spawn.createDefaultData(k)
 			currentSpawns[#currentSpawns + 1] = data
@@ -333,27 +341,33 @@ AddEventHandler("spawn:clientSpawnData", function(spawnData)
 
 	-- fuck json , makes me only send the info of the table :( , json does not support vector4 kek
 	local infoTable = {}
-	for i=1,#currentSpawns do
+	for i = 1, #currentSpawns do
 		local spawn = currentSpawns[i]
-		infoTable[i] = {["info"] = spawn.info,["posX"] = spawn.pos.x,["posY"] = spawn.pos.y,["checkS"] = i}
+		infoTable[i] = { ["info"] = spawn.info, ["posX"] = spawn.pos.x, ["posY"] = spawn.pos.y, ["checkS"] = i }
 	end
 
-	local fav = exports["storage"]:tryGet("string","cauefavorite")
-	if fav == nil then fav = "" end
+	local fav = exports["storage"]:tryGet("string", "cauefavorite")
+	if fav == nil then
+		fav = ""
+	end
 
 	local fonund = false
-	for k,v in pairs(currentSpawns) do
-		if fav == v.info then fonund = true end
+	for k, v in pairs(currentSpawns) do
+		if fav == v.info then
+			fonund = true
+		end
 	end
 
-	if not fonund then fav = "" end
+	if not fonund then
+		fav = ""
+	end
 
 	Wait(200)
-	SetNuiFocus(true,true)
+	SetNuiFocus(true, true)
 	SendNUIMessage({
 		updateSpawnMenu = true,
 		spawns = infoTable,
-		fav = fav
+		fav = fav,
 	})
 
 	Spawn.housingCoords = nil

@@ -58,7 +58,7 @@ AddEventHandler("caue-youngboys:stationPrompt", function(pParameters, pEntity, p
         local activeRegister = activePurchases[activeRegisterId]
 
         if not activeRegister or activeRegister == nil then
-            TriggerEvent("DoLongHudText", "Nenhuma compra ativa.")
+			TriggerEvent("DoLongHudText", "No active purchases.")
             return
         end
 

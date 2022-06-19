@@ -48,17 +48,17 @@ function ShowDocument(aDocument)
         TriggerServerEvent("caue-documents:showDocument", v, aDocument)
     end
 
-    TriggerEvent("DoLongHudText", "Documento mostrado para " .. #players .. " player(s)")
+	TriggerEvent("DoLongHudText", "Document shown for " .. #players .. " player(s)")
 end
 
 function CopyDocument(aDocument)
-    local players = GetClosestPlayers(GetEntityCoords(PlayerPedId()), 2.0)
+	local players = GetClosestPlayers(GetEntityCoords(PlayerPedId()), 2.0)
 
-    for i, v in ipairs(players) do
-        TriggerServerEvent("caue-documents:copyDocument", v, aDocument)
-    end
+	for i, v in ipairs(players) do
+		TriggerServerEvent("caue-documents:copyDocument", v, aDocument)
+	end
 
-    TriggerEvent("DoLongHudText", "Documento copiado para " .. #players .. " player(s)")
+	TriggerEvent("DoLongHudText", "Document copied to " .. #players .. " player(s)")
 end
 
 function DeleteDocument(id)

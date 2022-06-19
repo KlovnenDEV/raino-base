@@ -41,7 +41,7 @@ AddEventHandler("police:remmask", function(t)
             ClearPedTasks(PlayerPedId())
 		end
 	else
-		TriggerEvent("DoLongHudText", "Não tem ninguem próximo (Tente chegar mais perto).",2)
+		TriggerEvent("DoLongHudText", "There's no one nearby (Try to get closer).", 2)
 	end
 end)
 
@@ -50,15 +50,15 @@ AddEventHandler("police:remmaskAccepted", function()
 	TriggerEvent("facewear:adjust", {
 		{
 			id = "hat",
-			shouldRemove = true
+			shouldRemove = true,
 		},
 		{
 			id = "googles",
-			shouldRemove = true
+			shouldRemove = true,
 		},
 		{
 			id = "mask",
-			shouldRemove = true
+			shouldRemove = true,
 		},
 	}, true, true)
 end)
@@ -66,42 +66,65 @@ end)
 RegisterNetEvent("police:checkInventory")
 AddEventHandler("police:checkInventory", function(pArgs, pEntity)
 	TriggerEvent("animation:PlayAnimation", "push")
-    local finished = exports["caue-taskbar"]:taskBar(15000, pArgs and "Revista Leve" or "Revistar", false, true, nil, false, nil, 5)
+	local finished = exports["caue-taskbar"]:taskBar(
+		15000,
+		pArgs and "Revista Leve" or "Revistar",
+		false,
+		true,
+		nil,
+		false,
+		nil,
+		5
+	)
 	TriggerEvent("animation:PlayAnimation", "c")
 
-    if finished == 100 then
-        TriggerServerEvent("police:targetCheckInventory", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)), pArgs)
-    end
+	if finished == 100 then
+		TriggerServerEvent(
+			"police:targetCheckInventory",
+			GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)),
+			pArgs
+		)
+	end
 end)
 
 RegisterNetEvent("police:rob")
 AddEventHandler("police:rob", function(pArgs, pEntity)
-    RequestAnimDict("random@shop_robbery")
-    while not HasAnimDictLoaded("random@shop_robbery") do
-        Citizen.Wait(0)
-    end
+	RequestAnimDict("random@shop_robbery")
+	while not HasAnimDictLoaded("random@shop_robbery") do
+		Citizen.Wait(0)
+	end
 
-    ClearPedTasksImmediately(PlayerPedId())
+	ClearPedTasksImmediately(PlayerPedId())
 
-    TaskPlayAnim(PlayerPedId(), "random@shop_robbery", "robbery_action_b", 8.0, -8, -1, 16, 0, 0, 0, 0)
-    local finished = exports["caue-taskbar"]:taskBar(60000, "Roubando", true, true, nil, false, nil, 5)
+	TaskPlayAnim(PlayerPedId(), "random@shop_robbery", "robbery_action_b", 8.0, -8, -1, 16, 0, 0, 0, 0)
+	local finished = exports["caue-taskbar"]:taskBar(60000, "Roubando", true, true, nil, false, nil, 5)
 
-    ClearPedTasksImmediately(PlayerPedId())
+	ClearPedTasksImmediately(PlayerPedId())
 
 	if finished == 100 then
-        TriggerServerEvent("police:rob", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)))
-        TriggerServerEvent("police:targetCheckInventory", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)), false)
-    end
+		TriggerServerEvent("police:rob", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)))
+		TriggerServerEvent(
+			"police:targetCheckInventory",
+			GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)),
+			false
+		)
+	end
 end)
 
 RegisterNetEvent("shoes:steal")
 AddEventHandler("shoes:steal", function(pArgs, pEntity)
-  	loadAnimDict("random@domestic")
-  	TaskTurnPedToFaceEntity(PlayerPedId(), pEntity, -1)
-  	TaskPlayAnim(PlayerPedId(),"random@domestic", "pickup_low",5.0, 1.0, 1.0, 48, 0.0, 0, 0, 0)
-  	Citizen.Wait(1600)
-  	ClearPedTasks(PlayerPedId())
-  	TriggerServerEvent("facewear:adjust", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)), "stolenshoes", true, true)
+	loadAnimDict("random@domestic")
+	TaskTurnPedToFaceEntity(PlayerPedId(), pEntity, -1)
+	TaskPlayAnim(PlayerPedId(), "random@domestic", "pickup_low", 5.0, 1.0, 1.0, 48, 0.0, 0, 0, 0)
+	Citizen.Wait(1600)
+	ClearPedTasks(PlayerPedId())
+	TriggerServerEvent(
+		"facewear:adjust",
+		GetPlayerServerId(NetworkGetPlayerIndexFromPed(pEntity)),
+		"stolenshoes",
+		true,
+		true
+	)
 end)
 
 RegisterNetEvent("police:gsr")
@@ -124,26 +147,26 @@ end)
 AddEventHandler("caue-police:giveTicket", function(pParams, pEntity, pContext)
 	local input = exports["caue-input"]:showInput({
 		{
-            icon = "hand-holding-usd",
-            label = "Valor",
-            name = "amount",
-        },
+			icon = "hand-holding-usd",
+			label = "Valor",
+			name = "amount",
+		},
 		{
-            icon = "comment",
-            label = "Comentário",
-            name = "comment",
-        },
+			icon = "comment",
+			label = "Comentário",
+			name = "comment",
+		},
 	})
 
 	if input["amount"] and input["comment"] then
 		local amount = tonumber(input["amount"])
 		if not amount or amount < 1 then
-			TriggerEvent("DoLongHudText", "Valor inválido", 2)
+			TriggerEvent("DoLongHudText", "Invalid value", 2)
 			return
 		end
 
         if not IsNearPlayer(pEntity) then
-            TriggerEvent("DoLongHudText", "Você não está próximo do player!", 2)
+            TriggerEvent("DoLongHudText", "You are not close to the player!", 2)
             return
         end
 

@@ -54,321 +54,321 @@ function toggleFaceWear(pType, pRemove, pInfo, pSteal)
 
     if not pRemove then
         if pInfo.gender == "male" and not IsMale then
-            TriggerEvent("DoLongHudText", "Esta roupa só serve no sexo oposto. ", 2)
-            return
+			TriggerEvent("DoLongHudText", "This outfit only fits the opposite sex.", 2)
+			return
         end
     end
 
-    removing = true
+	removing = true
 
-    if pType == "hat" then
-        PropIndex = 0
-        AnimSet = "mp_masks@on_foot"
-        Animation = "put_on_mask"
-    elseif pType == "googles" then
-        PropIndex = 1
-        AnimSet = "clothingspecs"
-        Animation = "take_off"
-        Wait = 1200
-    elseif pType == "chain" then
-        PropIndex = 7
-        AnimSet = "clothingspecs"
-        Animation = "take_off"
-        Wait = 1200
-    elseif pType == "mask" then
-        PropIndex = 1
-        AnimSet = "mp_masks@on_foot"
-        Animation = "put_on_mask"
-    elseif pType == "vest" then
-        PropIndex = 9
-    elseif pType == "jacket" then
-        PropIndex = 11
-    elseif pType == "shirt" then
-        PropIndex = 8
-    elseif pType == "backpack" then
-        PropIndex = 5
-    elseif pType == "pants" then
-        PropIndex = 4
-    elseif pType == "watch" then
-        PropIndex = 6
-    elseif pType == "braclets" then
-        PropIndex = 7
-    elseif pType == "earrings" then
-        PropIndex = 2
-        AnimSet = "clothingspecs"
-        Animation = "take_off"
-        Wait = 1200
-    elseif pType == "shoes" then
-        PropIndex = 6
-        AnimSet = "random@domestic"
-        Animation = "pickup_low"
-    elseif pType == "stolenshoes" then
-        PropIndex = 6
-    end
+	if pType == "hat" then
+		PropIndex = 0
+		AnimSet = "mp_masks@on_foot"
+		Animation = "put_on_mask"
+	elseif pType == "googles" then
+		PropIndex = 1
+		AnimSet = "clothingspecs"
+		Animation = "take_off"
+		Wait = 1200
+	elseif pType == "chain" then
+		PropIndex = 7
+		AnimSet = "clothingspecs"
+		Animation = "take_off"
+		Wait = 1200
+	elseif pType == "mask" then
+		PropIndex = 1
+		AnimSet = "mp_masks@on_foot"
+		Animation = "put_on_mask"
+	elseif pType == "vest" then
+		PropIndex = 9
+	elseif pType == "jacket" then
+		PropIndex = 11
+	elseif pType == "shirt" then
+		PropIndex = 8
+	elseif pType == "backpack" then
+		PropIndex = 5
+	elseif pType == "pants" then
+		PropIndex = 4
+	elseif pType == "watch" then
+		PropIndex = 6
+	elseif pType == "braclets" then
+		PropIndex = 7
+	elseif pType == "earrings" then
+		PropIndex = 2
+		AnimSet = "clothingspecs"
+		Animation = "take_off"
+		Wait = 1200
+	elseif pType == "shoes" then
+		PropIndex = 6
+		AnimSet = "random@domestic"
+		Animation = "pickup_low"
+	elseif pType == "stolenshoes" then
+		PropIndex = 6
+	end
 
-    if pSteal == false then
-        loadAnimDict(AnimSet)
-        TaskPlayAnim(PlayerPedId(), AnimSet, Animation, 4.0, 3.0, -1, 49, 1.0, 0, 0, 0)
-    else
-        Wait = 500
-    end
+	if pSteal == false then
+		loadAnimDict(AnimSet)
+		TaskPlayAnim(PlayerPedId(), AnimSet, Animation, 4.0, 3.0, -1, 49, 1.0, 0, 0, 0)
+	else
+		Wait = 500
+	end
 
-    local currentDrawable = GetPedDrawableVariation(PlayerPedId(), PropIndex) or -1
-    local currentProp = GetPedPropIndex(PlayerPedId(), PropIndex) or -1
+	local currentDrawable = GetPedDrawableVariation(PlayerPedId(), PropIndex) or -1
+	local currentProp = GetPedPropIndex(PlayerPedId(), PropIndex) or -1
 
-    Citizen.Wait(Wait)
+	Citizen.Wait(Wait)
 
-    if pType == "hat" or pType == "googles" or pType == "watch" or pType == "braclets" or pType == "earrings" then
-        local texture = GetPedPropTextureIndex(PlayerPedId(), PropIndex) or 0
+	if pType == "hat" or pType == "googles" or pType == "watch" or pType == "braclets" or pType == "earrings" then
+		local texture = GetPedPropTextureIndex(PlayerPedId(), PropIndex) or 0
 
-        if pRemove then
-            if currentProp ~= -1 then
-                ClearPedProp(PlayerPedId(), PropIndex)
+		if pRemove then
+			if currentProp ~= -1 then
+				ClearPedProp(PlayerPedId(), PropIndex)
 
-                ItemHandler = true
-                ItemMeta = { prop = currentProp, txd = texture }
-            end
-        else
-            if currentProp ~= -1 then
-                local _itemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentProp,
-                    txd = texture
-                }
-                TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
-            end
+				ItemHandler = true
+				ItemMeta = { prop = currentProp, txd = texture }
+			end
+		else
+			if currentProp ~= -1 then
+				local _itemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentProp,
+					txd = texture,
+				}
+				TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
+			end
 
-            SetPedPropIndex(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, true)
+			SetPedPropIndex(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, true)
 
-            ItemHandler = true
-        end
-    elseif pType == "mask" or pType == "vest" or pType == "backpack" or pType == "chain" then
-        local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
-        local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
+			ItemHandler = true
+		end
+	elseif pType == "mask" or pType == "vest" or pType == "backpack" or pType == "chain" then
+		local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
+		local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
 
-        if pRemove then
-            if currentDrawable ~= -1 then
-                SetPedComponentVariation(PlayerPedId(), PropIndex, -1, -1, -1)
+		if pRemove then
+			if currentDrawable ~= -1 then
+				SetPedComponentVariation(PlayerPedId(), PropIndex, -1, -1, -1)
 
-                ItemHandler = true
-                ItemMeta = { prop = currentDrawable, txd = texture, palette = pal }
-            end
-        else
-            if currentDrawable ~= -1 then
-                local _itemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal
-                }
-                TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
-            end
+				ItemHandler = true
+				ItemMeta = { prop = currentDrawable, txd = texture, palette = pal }
+			end
+		else
+			if currentDrawable ~= -1 then
+				local _itemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+				}
+				TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
+			end
 
-            SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop,  pInfo.txd,  pInfo.pallete)
+			SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.pallete)
 
-            ItemHandler = true
-        end
-    elseif pType == "jacket" then
-        local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
-        local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
-        local arm = GetPedDrawableVariation(PlayerPedId(), 3) or 0
+			ItemHandler = true
+		end
+	elseif pType == "jacket" then
+		local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
+		local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
+		local arm = GetPedDrawableVariation(PlayerPedId(), 3) or 0
 
-        local bareTorsoIndex = 15
-        local bareArmsIndex = 15
+		local bareTorsoIndex = 15
+		local bareArmsIndex = 15
 
-        if not IsMale then
-            bareTorsoIndex = 18
-        end
+		if not IsMale then
+			bareTorsoIndex = 18
+		end
 
-        if pRemove then
-            if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
-                SetPedComponentVariation(PlayerPedId(), PropIndex, bareTorsoIndex, 0, -1)
-                SetPedComponentVariation(PlayerPedId(), 3, bareArmsIndex, 0, -1)
+		if pRemove then
+			if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
+				SetPedComponentVariation(PlayerPedId(), PropIndex, bareTorsoIndex, 0, -1)
+				SetPedComponentVariation(PlayerPedId(), 3, bareArmsIndex, 0, -1)
 
-                ItemHandler = true
-                ItemMeta = {
-                    _hideKeys = { "_remove_id", "arms" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal,
-                    arms = arm
-                }
-            end
-        else
-            if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
-                local _itemMeta = {
-                    _hideKeys = { "_remove_id", "arms" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal,
-                    arms = arm
-                }
-                TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
-            end
+				ItemHandler = true
+				ItemMeta = {
+					_hideKeys = { "_remove_id", "arms" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+					arms = arm,
+				}
+			end
+		else
+			if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
+				local _itemMeta = {
+					_hideKeys = { "_remove_id", "arms" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+					arms = arm,
+				}
+				TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
+			end
 
-            SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
-            SetPedComponentVariation(PlayerPedId(), 3, pInfo.arms, 0, -1)
+			SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
+			SetPedComponentVariation(PlayerPedId(), 3, pInfo.arms, 0, -1)
 
-            ItemHandler = true
-        end
-    elseif pType == "shirt" then
-        local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
-        local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
+			ItemHandler = true
+		end
+	elseif pType == "shirt" then
+		local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
+		local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
 
-        local bareTorsoIndex = 15
+		local bareTorsoIndex = 15
 
-        if not IsMale then
-            bareTorsoIndex = 18
-        end
+		if not IsMale then
+			bareTorsoIndex = 18
+		end
 
-        if pRemove then
-            if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
-                SetPedComponentVariation(PlayerPedId(), PropIndex, bareTorsoIndex, 0, -1)
+		if pRemove then
+			if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
+				SetPedComponentVariation(PlayerPedId(), PropIndex, bareTorsoIndex, 0, -1)
 
-                ItemHandler = true
-                ItemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal
-                }
-            end
-        else
-            if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
-                local _itemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal
-                }
-                TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
-            end
+				ItemHandler = true
+				ItemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+				}
+			end
+		else
+			if currentDrawable ~= -1 and currentDrawable ~= bareTorsoIndex then
+				local _itemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+				}
+				TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
+			end
 
-            SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
-            SetPedComponentVariation(PlayerPedId(), 3, pInfo.arms, 0, -1)
+			SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
+			SetPedComponentVariation(PlayerPedId(), 3, pInfo.arms, 0, -1)
 
-            ItemHandler = true
-        end
-    elseif pType == "pants" then
-        local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
-        local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
+			ItemHandler = true
+		end
+	elseif pType == "pants" then
+		local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
+		local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
 
-        local bareLegsIndex = 61
+		local bareLegsIndex = 61
 
-        if not IsMale then
-            bareLegsIndex = 17
-        end
+		if not IsMale then
+			bareLegsIndex = 17
+		end
 
-        if pRemove then
-            if currentDrawable ~= -1 and currentDrawable ~= bareLegsIndex then
-                SetPedComponentVariation(PlayerPedId(), PropIndex, bareLegsIndex, 0, -1)
+		if pRemove then
+			if currentDrawable ~= -1 and currentDrawable ~= bareLegsIndex then
+				SetPedComponentVariation(PlayerPedId(), PropIndex, bareLegsIndex, 0, -1)
 
-                ItemHandler = true
-                ItemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal
-                }
-            end
-        else
-            if currentDrawable ~= -1 and currentDrawable ~= bareLegsIndex then
-                local _itemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal
-                }
-                TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
-            end
+				ItemHandler = true
+				ItemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+				}
+			end
+		else
+			if currentDrawable ~= -1 and currentDrawable ~= bareLegsIndex then
+				local _itemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+				}
+				TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
+			end
 
-            SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
+			SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
 
-            ItemHandler = true
-        end
-    elseif pType == "shoes" then
-        local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
-        local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
+			ItemHandler = true
+		end
+	elseif pType == "shoes" then
+		local texture = GetPedTextureVariation(PlayerPedId(), PropIndex) or 0
+		local pal = GetPedPaletteVariation(PlayerPedId(), PropIndex) or -1
 
-        local bareFootIndex = 34
+		local bareFootIndex = 34
 
-        if not IsMale then
-            bareFootIndex = 35
-        end
+		if not IsMale then
+			bareFootIndex = 35
+		end
 
-        if pRemove then
-            if currentDrawable ~= -1 and currentDrawable ~= bareFootIndex then
-                SetPedComponentVariation(PlayerPedId(), PropIndex, bareFootIndex, 0, -1)
+		if pRemove then
+			if currentDrawable ~= -1 and currentDrawable ~= bareFootIndex then
+				SetPedComponentVariation(PlayerPedId(), PropIndex, bareFootIndex, 0, -1)
 
-                ItemHandler = true
-                ItemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal
-                }
-            end
-        else
-            if currentDrawable ~= -1 and currentDrawable ~= bareFootIndex then
-                local _itemMeta = {
-                    _hideKeys = { "_remove_id" },
-                    _remove_id = math.random(10000000, 999999999),
-                    prop = currentDrawable,
-                    txd = texture,
-                    palette = pal
-                }
-                TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
-            end
+				ItemHandler = true
+				ItemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+				}
+			end
+		else
+			if currentDrawable ~= -1 and currentDrawable ~= bareFootIndex then
+				local _itemMeta = {
+					_hideKeys = { "_remove_id" },
+					_remove_id = math.random(10000000, 999999999),
+					prop = currentDrawable,
+					txd = texture,
+					palette = pal,
+				}
+				TriggerEvent("player:receiveItem", pType, 1, false, _itemMeta)
+			end
 
-            SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
+			SetPedComponentVariation(PlayerPedId(), PropIndex, pInfo.prop, pInfo.txd, pInfo.palette)
 
-            ItemHandler = true
-        end
-    elseif pType == "stolenshoes" then
-        local bareFootIndex = 34
+			ItemHandler = true
+		end
+	elseif pType == "stolenshoes" then
+		local bareFootIndex = 34
 
-        if not IsMale then
-            bareFootIndex = 35
-        end
+		if not IsMale then
+			bareFootIndex = 35
+		end
 
-        if currentDrawable ~= -1 and currentDrawable ~= bareFootIndex then
-            SetPedComponentVariation(PlayerPedId(), PropIndex, bareFootIndex, 0, -1)
-            TriggerServerEvent("caue-clothes:facewearSendItem", pSteal, pType, ItemMeta)
-        end
-    end
+		if currentDrawable ~= -1 and currentDrawable ~= bareFootIndex then
+			SetPedComponentVariation(PlayerPedId(), PropIndex, bareFootIndex, 0, -1)
+			TriggerServerEvent("caue-clothes:facewearSendItem", pSteal, pType, ItemMeta)
+		end
+	end
 
-    if ItemHandler then
-        ItemMeta.gender = IsMale and "male" or "female"
+	if ItemHandler then
+		ItemMeta.gender = IsMale and "male" or "female"
 
-        if pSteal ~= false then
-            TriggerServerEvent("caue-clothes:facewearSendItem", pSteal, pType, ItemMeta)
-        else
-            if pRemove then
-                TriggerEvent("player:receiveItem", pType, 1, false, ItemMeta)
-            else
-                TriggerEvent("inventory:removeItemByMetaKV", pType, 1, "_remove_id", pInfo._remove_id)
-            end
-        end
-    end
+		if pSteal ~= false then
+			TriggerServerEvent("caue-clothes:facewearSendItem", pSteal, pType, ItemMeta)
+		else
+			if pRemove then
+				TriggerEvent("player:receiveItem", pType, 1, false, ItemMeta)
+			else
+				TriggerEvent("inventory:removeItemByMetaKV", pType, 1, "_remove_id", pInfo._remove_id)
+			end
+		end
+	end
 
-    if pSteal == false then
-        ClearPedTasks(PlayerPedId())
-    end
+	if pSteal == false then
+		ClearPedTasks(PlayerPedId())
+	end
 
-    TriggerEvent("caue-clothes:saveCurrentClothes")
+	TriggerEvent("caue-clothes:saveCurrentClothes")
 
-    Citizen.Wait(250)
+	Citizen.Wait(250)
 
-    removing = false
+	removing = false
 end
 
 --[[
@@ -378,48 +378,56 @@ end
 ]]
 
 AddEventHandler("caue-inventory:itemUsed", function(item, info)
-    if has_value(items, item) == -1 then return end
+	if has_value(items, item) == -1 then
+		return
+	end
 
-    if removing then
-        TriggerEvent("DoLongHudText", "Mais devagar ok?", 2)
-        return
-    end
+	if removing then
+		TriggerEvent("DoLongHudText", "Slower ok?", 2)
+		return
+	end
 
-    if antispam >= GetCloudTimeAsInt() then
-        TriggerEvent("DoLongHudText", "Mais devagar ok?", 2)
-        return
-    end
+	if antispam >= GetCloudTimeAsInt() then
+		TriggerEvent("DoLongHudText", "Slower ok?", 2)
+		return
+	end
 
-    antispam = GetCloudTimeAsInt() + 1
+	antispam = GetCloudTimeAsInt() + 1
 
-    local info = json.decode(info)
+	local info = json.decode(info)
 
-    toggleFaceWear(item, false, info, false)
+	toggleFaceWear(item, false, info, false)
 end)
 
 RegisterNetEvent("facewear:adjust")
-AddEventHandler("facewear:adjust",function(pType, pRemove, pIsSteal)
-    if type(pType) == "table" then
-        for _, wearType in pairs(pType) do
-            toggleFaceWear(wearType.id, wearType.shouldRemove, wearType.info, wearType.isSteal)
-        end
-    else
-        toggleFaceWear(pType, pRemove, {}, pIsSteal)
-    end
+AddEventHandler("facewear:adjust", function(pType, pRemove, pIsSteal)
+	if type(pType) == "table" then
+		for _, wearType in pairs(pType) do
+			toggleFaceWear(wearType.id, wearType.shouldRemove, wearType.info, wearType.isSteal)
+		end
+	else
+		toggleFaceWear(pType, pRemove, {}, pIsSteal)
+	end
 end)
 
 AddEventHandler("caue-facewear:steal", function(pArgs)
-    loadAnimDict("random@domestic")
-  	TaskTurnPedToFaceEntity(PlayerPedId(), pArgs.entity, -1)
-  	TaskPlayAnim(PlayerPedId(),"random@domestic", "pickup_low",5.0, 1.0, 1.0, 48, 0.0, 0, 0, 0)
-  	Citizen.Wait(1600)
-  	ClearPedTasks(PlayerPedId())
-  	TriggerServerEvent("facewear:adjust", GetPlayerServerId(NetworkGetPlayerIndexFromPed(pArgs.entity)), pArgs.type, true, true)
+	loadAnimDict("random@domestic")
+	TaskTurnPedToFaceEntity(PlayerPedId(), pArgs.entity, -1)
+	TaskPlayAnim(PlayerPedId(), "random@domestic", "pickup_low", 5.0, 1.0, 1.0, 48, 0.0, 0, 0, 0)
+	Citizen.Wait(1600)
+	ClearPedTasks(PlayerPedId())
+	TriggerServerEvent(
+		"facewear:adjust",
+		GetPlayerServerId(NetworkGetPlayerIndexFromPed(pArgs.entity)),
+		pArgs.type,
+		true,
+		true
+	)
 end)
 
 AddEventHandler("caue-facewear:radial", function(pArgs)
     if antispam >= GetCloudTimeAsInt() then
-        TriggerEvent("DoLongHudText", "Mais devagar ok?", 2)
+		TriggerEvent("DoLongHudText", "Slower ok?", 2)
         return
     end
 

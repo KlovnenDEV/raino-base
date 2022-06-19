@@ -1219,7 +1219,7 @@ function trackPlayers(companionId)
     local closestCoords = RPC.execute("caue-pets:getClosestPlayer", GetEntityCoords(PlayerPedId()), ignoreServerIds)
     if not closestCoords then
         exports["caue-companions"]:perform("sit", companionId or "")
-        TriggerEvent("DoLongHudText", "Ele não parece estar interessado")
+		TriggerEvent("DoLongHudText", "He doesn't seem interested")
         exports["caue-companions"]:deselect()
         return
     end
@@ -1249,12 +1249,12 @@ local function doSniffAction(pType, pCompanionId)
     exports["caue-companions"]:deselect()
 
     if hasContraband then
-        TriggerEvent("DoLongHudText", "Seu animal achou algo!")
+        TriggerEvent("DoLongHudText", "Your pet has found something!")
         exports["caue-companions"]:perform("bark", pCompanionId)
         Wait(1000)
         exports["caue-companions"]:perform("sit", pCompanionId)
     else
-        TriggerEvent("DoLongHudText", "Seu animal não achou nada.")
+        TriggerEvent("DoLongHudText", "Your pet didn't find anything.")
     end
 end
 
@@ -1313,7 +1313,7 @@ AddEventHandler("caue-inventory:itemUsed", function(item, info)
     local characterId = exports["caue-base"]:getChar("id")
 
     if tonumber(info.Owner) ~= tonumber(characterId) then
-        TriggerEvent("DoLongHudText", "Eles não reconhecem você.", 2)
+        TriggerEvent("DoLongHudText", "They don't recognize you.", 2)
         return
     end
 

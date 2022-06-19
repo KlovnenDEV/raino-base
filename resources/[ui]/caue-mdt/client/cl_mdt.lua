@@ -674,7 +674,7 @@ AddEventHandler("caue-mdt:setRadio", function(radio, name)
         end
 
         exports["caue-voice"]:SetRadioFrequency(radio)
-        TriggerEvent("DoLongHudText", "A frequência do seu rádio foi setada para " .. radio .. " MHz, por " .. name)
+        TriggerEvent("DoLongHudText", "Your radio frequency has been set to " .. radio .. " MHz, for " .. name)
     end
 end)
 
@@ -720,7 +720,7 @@ RegisterNUICallback("setWaypoint", function(data, cb)
     local call = RPC.execute("caue-dispatch:getCall", data.callid)
 
     if call then
-        TriggerEvent("DoLongHudText", "GPS marcado!")
+        TriggerEvent("DoLongHudText", "GPS Marked!")
         SetNewWaypoint(call.origin.x, call.origin.y)
     end
 
@@ -930,7 +930,7 @@ end)
 
 RegisterNUICallback("searchHouse", function(data, cb)
     local houseInfo = exports["caue-housing"]:getHouse(data.house_id)
-    TriggerEvent("DoLongHudText", "GPS marcado!")
+    TriggerEvent("DoLongHudText", "GPS Marked!")
     SetNewWaypoint(houseInfo["pos"].x, houseInfo["pos"].y)
     cb(true)
 end)

@@ -785,7 +785,7 @@ AddEventHandler("caue-tacoshop:deliveryStart", function()
 
     CreateBlip(location)
 
-    TriggerEvent("DoLongHudText", "Nova entrega em " .. location.street .. ", foi marcada no seu GPS!")
+	TriggerEvent("DoLongHudText", "New delivery in " .. location.street .. ", was marked on your GPS!")
 
     while true do
 		Citizen.Wait(1)

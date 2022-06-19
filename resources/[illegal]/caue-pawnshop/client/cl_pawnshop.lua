@@ -31,7 +31,7 @@ AddEventHandler("caue-pawnshop:sell", function(pArgs, pEntity, pEntityFlags, pEn
         if #(GetEntityCoords(PlayerPedId()) - npcCoords) < 2.0 then
             TriggerServerEvent("caue-pawnshop:sell")
         else
-            TriggerEvent("DoLongHudText", "Você se moveu para longe idiota.", 2)
+			TriggerEvent("DoLongHudText", "You moved away idiot.", 2)
         end
     end
 end)

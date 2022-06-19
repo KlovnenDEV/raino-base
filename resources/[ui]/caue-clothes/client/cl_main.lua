@@ -560,7 +560,7 @@ function OpenMenu(name, pPriceText, pPrice)
         EnableGUI(true, name, pPriceText, pPrice)
         TriggerEvent("inmenu", true)
     else
-        TriggerEvent("DoLongHudText", "Você não é bem vindo aqui!");
+        TriggerEvent("DoLongHudText", "You are not welcome here!");
     end
 end
 
@@ -969,7 +969,7 @@ RegisterNUICallback('escape', function(data, cb)
     if shouldSave and currentPrice > 0 then
         local purchaseSuccess = RPC.execute("caue-clothes:purchase", currentPrice, currentTax, paymentType)
         if not purchaseSuccess then
-            TriggerEvent("DoLongHudText", "Você não tem dinheiro suficiente!")
+            TriggerEvent("DoLongHudText", "You do not have enough money!")
             shouldSave = false
         end
     end
