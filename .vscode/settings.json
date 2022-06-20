@@ -1,0 +1,10 @@
+{
+  "Lua.diagnostics.globals": [
+    "RegisterCommand",
+    "GetFirstBlipInfoId",
+    "DoesBlipExist",
+    "GetBlipInfoIdCoord",
+    "SetPedCoordsKeepVehicle",
+    "PlayerPedId"
+  ]
+}
