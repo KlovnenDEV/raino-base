@@ -44,7 +44,8 @@ AddEventHandler("caue-phone:updateTwitter", function(message)
 
       	if phoneNotifications then
         	PlaySound(-1, "Event_Start_Text", "GTAO_FM_Events_Soundset", 0, 0, 1)
-        	TriggerEvent("DoLongHudText", "Você acabou de ser mencionado em um tweet no seu celular")
+			TriggerEvent("DoLongHudText", "You've just been mentioned in a tweet on your phone")
+      
       	end
     end
 
