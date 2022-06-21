@@ -34,7 +34,7 @@ function Login.CreatePlayerCharacterPeds(characterModelData,isReset)
         return
     end
 
-    local pedCoords = GetEntityCoords(PlayerPedId())
+    -- local pedCoords = GetEntityCoords(PlayerPedId())
 
     if isReset then
         Login.ClearSpawnedPeds()
@@ -45,7 +45,7 @@ function Login.CreatePlayerCharacterPeds(characterModelData,isReset)
 
     local noCharacters = true
 
-    for _=1,#Login.spawnLoc do
+    for _ = 1,#Login.spawnLoc do
         local isCustom = false
         local character = nil
         local cid = 0
