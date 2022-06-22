@@ -8,7 +8,7 @@ AddEventHandler("caue-pets:purchasePet", function(params, name)
     local cash = exports["caue-financials"]:getCash(src)
 
     if params.price > cash then
-        TriggerClientEvent("DoLongHudText", src, "Você não tem $" .. params.price .. " com você", 2)
+        TriggerClientEvent("DoLongHudText", src, "You do not have $" .. params.price , 2)
         return
     end
 
