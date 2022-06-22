@@ -1136,66 +1136,66 @@ end
 local function showPlayerOptions(companionId, pedId)
     local items = {
         {
-            title = "Mover",
-            description = "Se move a essa pessoa",
+            title = "Move",
+            description = "Move to that person",
             action = "caue-pets:companionPlayerAction",
             params = { companionId = companionId, action = "move", pedId = pedId },
         },
         {
-            title = "Observar",
-            description = "Fica de olho aberto'",
+            title = "Watch",
+            description = "Keep your eyes open",
             action = "caue-pets:companionAction",
             params = { companionId = companionId, action = "watch", pedId = pedId },
         },
     }
 
-    if hasSpawnedK9Unit() then
-        items[#items + 1] = {
-            title = "Rastrear",
-            description = "Algum contrabando?",
-            action = "caue-pets:companionPlayerAction",
-            params = { companionId = companionId, action = "sniff", pedId = pedId },
-        }
-    end
+	if hasSpawnedK9Unit() then
+		items[#items + 1] = {
+			title = "Sniff",
+			description = "Any smuggling?",
+			action = "caue-pets:companionPlayerAction",
+			params = { companionId = companionId, action = "sniff", pedId = pedId },
+		}
+	end
 
-    if hasSpawnedK9Unit() then
-        items[#items + 1] = {
-            title = "Ignorar",
-            description = "Não procura algo nessa pessoa",
-            action = "caue-pets:companionPlayerAction",
-            params = { companionId = companionId, action = "untrack", pedId = pedId },
-        }
-    end
+	if hasSpawnedK9Unit() then
+		items[#items + 1] = {
+			title = "Ignore",
+			description = "Stock tracking that person",
+			action = "caue-pets:companionPlayerAction",
+			params = { companionId = companionId, action = "untrack", pedId = pedId },
+		}
+	end
 
-    if hasAnimalWithSkill("attack") then
-        items[#items + 1] = {
-            title = "Atacar",
-            description = "Atacar!",
-            action = "caue-pets:companionPlayerAction",
-            params = { companionId = companionId, action = "attack", pedId = pedId },
-        }
-    end
+	if hasAnimalWithSkill("attack") then
+		items[#items + 1] = {
+			title = "Attack",
+			description = "Attack!",
+			action = "caue-pets:companionPlayerAction",
+			params = { companionId = companionId, action = "attack", pedId = pedId },
+		}
+	end
 
-    exports["caue-context"]:showContext(items)
+	exports["caue-context"]:showContext(items)
 end
 
 local function showVehicleOptions(vehicleId)
     local items = {
         {
-            title = "Mover",
-            description = "Vai para o veiculo",
+            title = "Move",
+            description = "Go to the vehicle",
             action = "caue-pets:companionVehicleAction",
             params = { vehicleId = vehicleId, action = "move" },
         },
         {
-            title = "Entrar",
-            description = "Entra no Veiculo",
+            title = "Get in",
+            description = "Enter the Vehicle",
             action = "caue-pets:companionVehicleAction",
             params = { vehicleId = vehicleId, action = "vehicle" },
         },
         {
-            title = "Observar",
-            description = "Fica de olho aberto'",
+            title = "Watch",
+            description = "Keep your eyes open",
             action = "caue-pets:companionVehicleAction",
             params = { vehicleId = vehicleId, action = "watch" },
         },
@@ -1203,8 +1203,8 @@ local function showVehicleOptions(vehicleId)
 
     if hasSpawnedK9Unit() then
         items[#items + 1] = {
-            title = "Rastrear",
-            description = "Algum contrabando?",
+            title = "Sniff",
+            description = "Any smuggling?",
             action = "caue-pets:companionVehicleAction",
             params = { vehicleId = vehicleId, action = "sniff" },
         }
