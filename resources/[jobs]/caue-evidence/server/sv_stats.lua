@@ -57,7 +57,7 @@ RPC.register("caue-evidence:canHeal", function(src)
     local bank = exports["caue-financials"]:getBalance(accountId)
 
     if bank < 200 then
-        TriggerClientEvent("DoLongHudText", src, "Você não tem $" .. 200 .. " na sua conta do banco", 2)
+        TriggerClientEvent("DoLongHudText", src, "You don't have $" .. 200 .. " in your bank account", 2)
         return false
     end
 

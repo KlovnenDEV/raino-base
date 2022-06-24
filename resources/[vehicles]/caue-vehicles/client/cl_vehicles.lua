@@ -319,7 +319,7 @@ AddEventHandler("vehicle:toggleEngine", function()
             Sync.SetVehicleEngineOn(vehicle, 0, 1, 1)
 			Sync.SetVehicleUndriveable(vehicle, true)
 
-            TriggerEvent("DoLongHudText", "Motor Desligado")
+            TriggerEvent("DoLongHudText", "Engine Off")
         else
             if GetVehicleEngineHealth(vehicle) > 199 then
 				Sync.SetVehicleEngineOn(vehicle, 0, 1, 1)
@@ -335,7 +335,7 @@ AddEventHandler("vehicle:toggleEngine", function()
 					Sync.SetVehicleEngineOn(vehicle, 1, 1, 1)
 				end
 
-				TriggerEvent("DoLongHudText", "Motor Ligado")
+				TriggerEvent("DoLongHudText", "Engine On")
 			else
 				Sync.SetVehicleEngineOn(vehicle, 0, 1, 1)
 				Sync.SetVehicleUndriveable(vehicle, true)

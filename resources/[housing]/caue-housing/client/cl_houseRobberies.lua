@@ -112,7 +112,7 @@ function attemptToLockPickHouse(skipPicking)
 			Housing.alarm = alarm
 			pickedToOpen = true
 		else
-			TriggerEvent("DoLongHudText", "Você pode mexer na porta.", 2)
+			TriggerEvent("DoLongHudText", "You can move the door.", 2)
 			return
 		end
 	end
