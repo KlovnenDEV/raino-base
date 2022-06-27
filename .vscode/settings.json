@@ -6,5 +6,6 @@
     "GetBlipInfoIdCoord",
     "SetPedCoordsKeepVehicle",
     "PlayerPedId"
-  ]
+  ],
+  "lua.targetVersion": "5.3"
 }
