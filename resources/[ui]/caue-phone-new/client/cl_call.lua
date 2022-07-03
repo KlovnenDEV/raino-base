@@ -103,7 +103,7 @@ AddEventHandler("phone:call:dialing", function(pNumber, pCallId)
         if not isDialing then break end
 
         if hasPhone() then
-            phoneNotification("fas fa-phone-volume", "Call", "Ligando para: " .. contact, 3000)
+            phoneNotification("fas fa-phone-volume", "Call", "Calling: " .. contact, 3000)
 
             if PayphoneCall and i < 7 then
                 TriggerEvent("InteractSound_CL:PlayOnOne", "payphoneringing", 0.5)
