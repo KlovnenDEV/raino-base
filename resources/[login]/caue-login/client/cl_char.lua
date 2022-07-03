@@ -187,7 +187,7 @@ AddEventHandler("login:CreatePlayerCharacterPeds", Login.CreatePlayerCharacterPe
 
 function Login.getCharacters(isReset)
     if not isReset then
-      TRIGGER_SCREENBLUR_FADE_OUT(500)
+      TriggerScreenblurFadeOut(500)
         local data = RPC.execute("caue-login:fetchData")
         if data.err then
             print(data.err)
