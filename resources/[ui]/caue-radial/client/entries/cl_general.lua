@@ -63,7 +63,7 @@ end)
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "vehicles-keysgive",
-        title = "Dar chaves",
+        title = "Give Keys",
         icon = "#general-keys-give",
         event = "vehicle:giveKey"
     },
@@ -75,7 +75,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "peds-escort",
-        title = "Parar escolta",
+        title = "Escort",
         icon = "#general-escort",
         event = "caue-police:escort"
     },
@@ -174,7 +174,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "unseat",
-        title = "Levantar",
+        title = "Get Up",
         icon = "#obj-chair",
         event = "caue-emotes:sitOnChair"
     },
@@ -186,7 +186,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "property-rent",
-        title = "Alugar propriedade",
+        title = "Rent Property",
         icon = "#real-estate-sell",
         event = "caue-housing:rent"
     },
@@ -198,7 +198,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "property-enter",
-        title = "Entrar propriedade",
+        title = "Enter Property",
         icon = "#property-enter",
         event = "housing:interactionTriggered",
         parameters = false,
@@ -212,7 +212,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "property-lock",
-        title = "Trancar/Destrancar propriedade",
+        title = "Lock/Unlock Property",
         icon = "#property-lock",
         event = "housing:toggleClosestLock"
     },
@@ -224,7 +224,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "property-invade",
-        title = "Invadir propriedade",
+        title = "Invade Property",
         icon = "#property-enter",
         event = "housing:interactionTriggered",
         parameters = true,
@@ -238,7 +238,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "property-edit",
-        title = "Editar propriedade",
+        title = "Edit Property",
         icon = "#property-edit",
         event = "caue-housing:edit"
     },
@@ -250,7 +250,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "vehicle-vehicleList",
-        title = "Lista de veiculos",
+        title = "Vehicles List",
         icon = "#vehicle-vehicleList",
         event = "caue-vehicles:garage",
         parameters = { nearby = true, radius = 4.0 }
@@ -283,7 +283,7 @@ end
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "drugs-selling",
-        title = "Vender Drogas",
+        title = "Sell Drugs",
         icon = "#weed-cultivation",
         event = "caue-drugs:startSell"
     },
@@ -295,7 +295,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "drugs-selling",
-        title = "Parar Vendas",
+        title = "Sell Drugs",
         icon = "#weed-cultivation",
         event = "caue-drugs:startSell"
     },
@@ -394,7 +394,7 @@ GeneralEntries[#GeneralEntries+1] = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "prepare-boat-mount",
-        title = "Montar no trailer",
+        title = "Mount Boat On Trailer",
         icon = "#vehicle-plate-remove",
         event = "vehicle:mountBoatOnTrailer"
     },
@@ -430,7 +430,7 @@ local policeModels = {
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "open-rifle-rack",
-        title = "Suporte de Armas",
+        title = "Open Rifle Rack",
         icon = "#vehicle-plate-remove",
         event = "vehicle:openRifleRack"
     },
@@ -456,7 +456,7 @@ end)
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "open-documents",
-        title = "Documentos",
+        title = "Documents",
         icon = "#general-documents",
         event = "caue-documents:openDocuments"
     },
