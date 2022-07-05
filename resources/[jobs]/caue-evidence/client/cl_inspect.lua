@@ -157,7 +157,7 @@ RegisterCommand("-collectEvidence", function ()
         timer = 60000
     end
 
-    local finished = exports["caue-taskbar"]:taskBar(timer, "Pegando Evidencia", "What?", true)
+    local finished = exports["caue-taskbar"]:taskBar(timer, "Collecting Evidence", "What?", true)
 
     if finished ~= 100 then return end
 
