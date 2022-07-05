@@ -357,7 +357,7 @@ Citizen.CreateThread( function()
                     if IsEntityDead(pedDriver) then
                         TriggerEvent("civilian:alertPolice", 20.0, "lockpick", targetVehicle)
 
-                        local finished = exports["caue-taskbar"]:taskBar(3000, "Pegando Chaves", false)
+                        local finished = exports["caue-taskbar"]:taskBar(3000, "Getting Keys", false)
                         if finished == 100 then
                             TriggerEvent("keys:addNew", vehicle)
                             exports["caue-flags"]:SetVehicleFlag(vehicle, "isStolenVehicle", true)
@@ -368,7 +368,7 @@ Citizen.CreateThread( function()
                         if math.random(100) > 95 then
                             TriggerEvent("civilian:alertPolice",20.0,"lockpick",targetVehicle)
 
-                            local finished = exports["caue-taskbar"]:taskBar(3000, "Pegando Chaves")
+                            local finished = exports["caue-taskbar"]:taskBar(3000, "Getting Keys")
                             if finished == 100 then
                                 TriggerEvent("keys:addNew", vehicle)
                             else
