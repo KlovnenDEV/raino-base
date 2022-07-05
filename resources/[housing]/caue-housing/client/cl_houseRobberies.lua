@@ -82,7 +82,7 @@ function attemptToLockPickHouse(skipPicking)
 			lockpickDoor()
 			TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lockpick", 0.4)
 
-			local finished = exports["caue-taskbar"]:taskBar(math.random(5000, 10000), "Arrombando")
+			local finished = exports["caue-taskbar"]:taskBar(math.random(5000, 10000), "Breaking In")
 
 			local failed = false
 			if math.random(100) < 30 then
