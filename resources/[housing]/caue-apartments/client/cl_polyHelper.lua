@@ -66,7 +66,7 @@ function polyHelperEnter(apartmentLocNumber, apartmentNumber)
 	end
 	listening = true
 	-- exports["caue-interaction"]:showInteraction(getInteractionMessage(apartmentLocNumber,apartmentNumber))
-	exports["caue-interaction"]:showInteraction("[H] parar entrar")
+	exports["caue-interaction"]:showInteraction("[H] To Enter")
 	listen(apartmentLocNumber, apartmentNumber)
 end
 
@@ -96,7 +96,7 @@ function getInteractionMessage(apartmentLocNumber, apartmentNumber)
 		Apart.currentRoomLocks[apartmentLocNumber][apartmentNumber] ~= nil
 		and Apart.currentRoomLocks[apartmentLocNumber][apartmentNumber] == false
 	then
-		return "[H] parar entrar"
+		return "[H] To Enter"
 	end
 end
 

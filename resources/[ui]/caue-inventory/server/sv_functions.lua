@@ -42,21 +42,20 @@ end
 
 function K9Sniff(pId)
     local inventory = getInventory("ply-" .. pId)
+	for _, v in ipairs(inventory) do
+		if itemList[v.item_id].contraband then
+			return true
+		end
+	end
 
-    for i, v in ipairs(inventory) do
-        if itemList[v.item_id].contraband then
-            return true
-        end
-    end
-
-    return false
+	return false
 end
 
 function K9SniffVehicle(pId)
-    local inventoryGlovebox = getInventory("Glovebox-" .. pId)
-    local inventoryTrunk = getInventory("Trunk-" .. pId)
+	local inventoryGlovebox = getInventory("Glovebox-" .. pId)
+	local inventoryTrunk = getInventory("Trunk-" .. pId)
 
-    for i, v in ipairs(inventoryGlovebox) do
+    for _, v in ipairs(inventoryGlovebox) do
         if itemList[v.item_id].contraband then
             return true
         end

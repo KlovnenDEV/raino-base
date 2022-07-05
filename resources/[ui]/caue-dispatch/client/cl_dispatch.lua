@@ -1403,7 +1403,7 @@ AddEventHandler("caue-dispatch:911", function(msg)
     local currentPos = GetEntityCoords(PlayerPedId())
 
     TriggerEvent("animation:PlayAnimation", "phone")
-    local finished = exports["caue-taskbar"]:taskBar(math.random(2500, 4000), "Ligando para 911")
+    local finished = exports["caue-taskbar"]:taskBar(math.random(2500, 4000), "calling 911")
     TriggerEvent("animation:PlayAnimation", "cancel")
 
     if finished == 100 then

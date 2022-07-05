@@ -211,7 +211,7 @@ AddEventHandler("keys:toggleLock", function(_vehicle)
         Sync.SetVehicleDoorsLocked(vehicle, 2)
 
         TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 3.0, "lock", 0.4)
-        TriggerEvent("DoLongHudText", "Veiculo Trancado")
+        TriggerEvent("DoLongHudText", "vehicle locked")
 
         if currentVehicle == 0 then
             SetVehicleLights(vehicle, 2)
@@ -244,7 +244,7 @@ AddEventHandler("keys:toggleLock", function(_vehicle)
         Sync.SetVehicleDoorsLocked(vehicle, 1)
 
         TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 5.0, "unlock", 0.1)
-        TriggerEvent("DoLongHudText", "Veiculo destrancado")
+        TriggerEvent("DoLongHudText", "Vehicle unlocked")
 
         if currentVehicle == 0 then
             SetVehicleLights(vehicle, 2)

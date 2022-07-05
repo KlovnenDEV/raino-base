@@ -60,7 +60,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "smoke_machine",
-            label = "Loja de cigarros",
+            label = "Cigarette Shop",
             icon = "circle",
             event = "caue-stripclub:smokemachine",
             parameters = {}
@@ -72,74 +72,74 @@ Entries[#Entries + 1] = {
 }
 
 Entries[#Entries + 1] = {
-    type = "flag",
-    group = { "isFuelPump" },
-    data = {
-        {
-            id = "jerrycan_refill",
-            label = "Encher Galão",
-            icon = "gas-pump",
-            event = "vehicle:refuel:showMenu",
-            parameters = { isJerryCan = true }
-        }
-    },
-    options = {
-        distance = { radius = 1.5 },
-        isEnabled = function(pEntity, pContext)
-            return HasWeaponEquipped(GetHashKey("WEAPON_PetrolCan"))
-        end
-    }
+	type = "flag",
+	group = { "isFuelPump" },
+	data = {
+		{
+			id = "jerrycan_refill",
+			label = "Fill Galon",
+			icon = "gas-pump",
+			event = "vehicle:refuel:showMenu",
+			parameters = { isJerryCan = true },
+		},
+	},
+	options = {
+		distance = { radius = 1.5 },
+		isEnabled = function(pEntity, pContext)
+			return HasWeaponEquipped(GetHashKey("WEAPON_PetrolCan"))
+		end,
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "flag",
-    group = { "isVendingMachine" },
-    data = {
-        {
-            id = "vending_machine",
-            label = "Navegar",
-            icon = "shopping-basket",
-            event = "shops:vendingMachine",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 1.5 }
-    }
+	type = "flag",
+	group = { "isVendingMachine" },
+	data = {
+		{
+			id = "vending_machine",
+			label = "Shop",
+			icon = "shopping-basket",
+			event = "shops:vendingMachine",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 1.5 },
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "flag",
-    group = { "isChair" },
-    data = {
-        {
-            id = "sit_on_chair",
-            label = "Sentar",
-            icon = "chair",
-            event = "caue-emotes:sitOnChair",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 1.5 }
-    }
+	type = "flag",
+	group = { "isChair" },
+	data = {
+		{
+			id = "sit_on_chair",
+			label = "Sit",
+			icon = "chair",
+			event = "caue-emotes:sitOnChair",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 1.5 },
+	},
 }
 
 Entries[#Entries + 1] = {
-    type = "flag",
-    group = { "isATM" },
-    data = {
-        {
-            id = "use_atm",
-            label = "Usar ATM",
-            icon = "credit-card",
-            event = "financial:openUI",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 1.5 }
-    }
+	type = "flag",
+	group = { "isATM" },
+	data = {
+		{
+			id = "use_atm",
+			label = "Use ATM",
+			icon = "credit-card",
+			event = "financial:openUI",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 1.5 },
+	},
 }
 
 Entries[#Entries + 1] = {
@@ -160,20 +160,20 @@ Entries[#Entries + 1] = {
 }
 
 Entries[#Entries + 1] = {
-    type = "flag",
-    group = { "isWeedPlant" },
-    data = {
-        {
-            id = "weed",
-            label = "Checar",
-            icon = "cannabis",
-            event = "caue-weed:checkPlant",
-            parameters = {}
-        }
-    },
-    options = {
-        distance = { radius = 7.0 }
-    }
+	type = "flag",
+	group = { "isWeedPlant" },
+	data = {
+		{
+			id = "weed",
+			label = "Check",
+			icon = "cannabis",
+			event = "caue-weed:checkPlant",
+			parameters = {},
+		},
+	},
+	options = {
+		distance = { radius = 7.0 },
+	},
 }
 
 Entries[#Entries + 1] = {
@@ -182,7 +182,7 @@ Entries[#Entries + 1] = {
     data = {
         {
             id = "weed2",
-            label = "Colher",
+            label = "Harvest",
             icon = "hand-paper",
             event = "caue-weed:pickPlant",
             parameters = {}

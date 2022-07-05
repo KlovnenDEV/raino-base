@@ -29,13 +29,13 @@ AddEventHandler("caue-housing:sell", function(pCid, pPropertyId)
 
     local seller = exports["caue-base"]:getChar(src, "id")
     if not seller or seller == 0 then
-        TriggerClientEvent("DoLongHudText", src, "vendedor não encontrado", 2)
+        TriggerClientEvent("DoLongHudText", src, "seller not found", 2)
         return
     end
 
     local buyer = exports["caue-base"]:getSidWithCid(pCid)
     if not buyer or buyer == 0 then
-        TriggerClientEvent("DoLongHudText", src, "comprador não encontrado", 2)
+        TriggerClientEvent("DoLongHudText", src, "buyer not found", 2)
         return
     end
 
@@ -47,7 +47,7 @@ AddEventHandler("CheckFurniture", function(pData, pPropertyId)
     local src = source
 
     if housingEditing[pPropertyId] ~= nil then
-        TriggerClientEvent("DoLongHudText", src, "Alguém já esta decorando esta propriedade", 2)
+        TriggerClientEvent("DoLongHudText", src, "Someone is already decorating this property", 2)
     else
         housingEditing[pPropertyId] = src
         TriggerClientEvent("caue-editor:loadEditor", src, pData)
@@ -164,7 +164,7 @@ RPC.register("caue-housing:rent", function(src, pPropertyId, pTotal, pTax)
         return false, "Database insert eror"
     end
 
-    TriggerClientEvent("DoLongHudText", src, "Você alugou " .. Housing.info[pPropertyId]["street"])
+    TriggerClientEvent("DoLongHudText", src, "you rented " .. Housing.info[pPropertyId]["street"])
 
     return true, getCurrentOwned(src)
 end)

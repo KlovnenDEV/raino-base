@@ -16,7 +16,7 @@ local data = {}
 function GenerateId(length, usecapital, usenumbers)
     local result = ""
 
-    for i = 1, length do
+    for _ = 1, length do
         local randomised = string.char(math.random(97, 122))
         if usecapital then
             if math.random(1, 2) == 1 then

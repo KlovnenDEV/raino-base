@@ -23,5 +23,5 @@ server_scripts {
 
 client_scripts {
 	"@caue-lib/client/cl_animTask.lua",
-    "client/*",
+  "client/*",
 }

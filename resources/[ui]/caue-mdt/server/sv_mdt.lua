@@ -289,7 +289,7 @@ AddEventHandler("caue-mdt:setRadioTo", function(cid, radio)
     local name = exports["caue-base"]:getChar(src, "first_name") .. " " .. exports["caue-base"]:getChar(src, "last_name")
     local nameTarget = exports["caue-base"]:getChar(target, "first_name") .. " " .. exports["caue-base"]:getChar(target, "last_name")
 
-    TriggerClientEvent("DoLongHudText", src, "A frequência de " .. nameTarget .. " foi setada para " .. radio)
+    TriggerClientEvent("DoLongHudText", src, "the frequency of " .. nameTarget .. " was set to " .. radio)
     TriggerClientEvent("caue-mdt:setRadio", target, tonumber(radio), name)
 end)
 

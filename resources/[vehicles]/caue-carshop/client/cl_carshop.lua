@@ -195,12 +195,12 @@ AddEventHandler("caue-carshop:commission", function(pParams, pEntity, pContext)
 	if input["commission"] then
 		local comission = tonumber(input["commission"])
 		if not comission then
-			TriggerEvent("DoLongHudText", "Comissão precisa ser de 1-30", 2)
+			TriggerEvent("DoLongHudText", "Commission needs to be 1-30", 2)
 			return
 		end
 
 		if comission < 1 or comission > 30 then
-			TriggerEvent("DoLongHudText", "Comissão precisa ser de 1-30", 2)
+			TriggerEvent("DoLongHudText", "Commission needs to be 1-30", 2)
 			return
 		end
 

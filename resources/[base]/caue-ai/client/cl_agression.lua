@@ -27,11 +27,11 @@ AddEventHandler("caue-jobs:jobChanged", function(job)
     if exports["caue-jobs"]:getJob(job, "is_emergency") then
         SetPedRelationshipGroupDefaultHash(PlayerPedId(), `MISSION2`)
         SetPedRelationshipGroupHash(PlayerPedId(), `MISSION2`)
-	    SetPoliceIgnorePlayer(PlayerPedId(), true)
+	      SetPoliceIgnorePlayer(PlayerPedId(), true)
     else
         SetPedRelationshipGroupDefaultHash(PlayerPedId(), `PLAYER`)
         SetPedRelationshipGroupHash(PlayerPedId(), `PLAYER`)
-		SetPoliceIgnorePlayer(PlayerPedId(), false)
+		    SetPoliceIgnorePlayer(PlayerPedId(), false)
     end
 end)
 

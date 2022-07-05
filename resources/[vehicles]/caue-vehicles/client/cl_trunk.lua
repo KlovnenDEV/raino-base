@@ -108,8 +108,8 @@ function PutInTrunk(veh)
         local testdic = "mp_common_miss"
         local testanim = "dead_ped_idle"
         RequestAnimDict(testdic)
+        Citizen.Wait(0)
         while not HasAnimDictLoaded(testdic) do
-            Citizen.Wait(0)
         end
 
         SetBlockingOfNonTemporaryEvents(PlayerPedId(), true)

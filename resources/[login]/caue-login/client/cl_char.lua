@@ -34,7 +34,7 @@ function Login.CreatePlayerCharacterPeds(characterModelData,isReset)
         return
     end
 
-    local pedCoords = GetEntityCoords(PlayerPedId())
+    -- local pedCoords = GetEntityCoords(PlayerPedId())
 
     if isReset then
         Login.ClearSpawnedPeds()
@@ -45,7 +45,7 @@ function Login.CreatePlayerCharacterPeds(characterModelData,isReset)
 
     local noCharacters = true
 
-    for _=1,#Login.spawnLoc do
+    for _ = 1,#Login.spawnLoc do
         local isCustom = false
         local character = nil
         local cid = 0
@@ -187,10 +187,8 @@ AddEventHandler("login:CreatePlayerCharacterPeds", Login.CreatePlayerCharacterPe
 
 function Login.getCharacters(isReset)
     if not isReset then
-        TransitionFromBlurred(500)
-
+      TriggerScreenblurFadeOut(500)
         local data = RPC.execute("caue-login:fetchData")
-
         if data.err then
             print(data.err)
             return

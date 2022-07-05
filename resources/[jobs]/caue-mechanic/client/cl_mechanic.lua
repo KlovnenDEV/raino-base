@@ -94,6 +94,6 @@ Citizen.CreateThread(function()
         event = "caue-mechanic:storage",
         id = "bennys_storage",
         icon = "box-open",
-        label = "Estoque",
+        label = "Inventory",
     }}, { distance = { radius = 3.5 }, isEnabled = isChargeActive })
 end)
