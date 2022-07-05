@@ -3,7 +3,7 @@ local GeneralEntries = MenuEntries["general"]
 GeneralEntries[#GeneralEntries+1] = {
     data = {
         id = "scenes",
-        title = "Cenas",
+        title = "Scenes",
         icon = "#general-scenes",
         event = "place-scenes"
     },
