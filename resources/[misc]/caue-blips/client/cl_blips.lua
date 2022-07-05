@@ -6,7 +6,7 @@
 
 local Config = {
     ["clothing"] = {
-        ["text"] = "Loja de Roupas",
+        ["text"] = "Clothing Store",
         ["sprite"] = 73,
         ["scale"] = 0.6,
         ["colour"] = 2,
