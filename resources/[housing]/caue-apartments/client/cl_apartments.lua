@@ -71,6 +71,7 @@ function Apart.processBuildType(numMultiplier, roomType, isSpawn)
 
 	local name = ""
 	name = Apart.FindCurrentRoom(roomType)
+  print(name)
 
 	local isBuiltCoords = exports["caue-build"]:getModule("func").buildRoom(name, numMultiplier, false)
 	if isBuiltCoords then
