@@ -98,6 +98,7 @@ function Login.CreatePlayerCharacterPeds(characterModelData,isReset)
                     local success, rData = pcall(CreatePedPCall, modelHash, Login.spawnLoc[_].x, Login.spawnLoc[_].y, Login.spawnLoc[_].z)
                     if success then
                         newPed = rData
+                        print("Jlonn")
                     else
                         newPed = CreatePed(3, `np_m_character_select`, Login.spawnLoc[_].x, Login.spawnLoc[_].y, Login.spawnLoc[_].z, 0.72, false, false)
                         print("MODEL FAILED TO LOAD IN SPAWN: " .. modelHash)
