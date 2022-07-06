@@ -6,6 +6,7 @@
 
 function loadBank()
     local accounts = RPC.execute("caue-financials:getAccounts")
+    print(accounts)
 
     SendNUIMessage({
         openSection = "loadBank",
