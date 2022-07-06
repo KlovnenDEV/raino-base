@@ -17,6 +17,8 @@ function CreateBlipHandler(pServerId, pJob, pCallSign)
 	local serverId = pServerId
 	local callsign = pCallSign
 	local job = pJob
+	
+	print(job)
 
 	local settings = GetBlipSettings(job, callsign)
 

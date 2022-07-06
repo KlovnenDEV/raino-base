@@ -8,8 +8,12 @@
           <option name="fileUrl" value="file://$PROJECT_DIR$/resources/[base]/caue-financials/server/sv_accounts.lua" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="106" />
+          <option name="caretOffset" value="521" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/resources/[ui]/caue-phone-new/client/cl_bank.lua" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/resources/[jobs]/caue-eblips/client/cl_emergency.lua" />
         </OpenedFileInfo>
       </list>
     </option>
