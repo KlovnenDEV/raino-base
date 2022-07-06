@@ -14,6 +14,17 @@ function loadBank()
     })
 end
 
+function loadBankAccount(account)
+    local transactions = RPC.execute("caue-financials:getTransactions", account)
+    print(transactions)
+
+    SendNUIMessage({
+        openSection = "loadBankAccount",
+        account = account,
+        transactions = transactions,
+    })
+end
+
 --[[
 
     NUI

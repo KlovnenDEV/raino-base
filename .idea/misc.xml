@@ -4,11 +4,11 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
+          <option name="caretOffset" value="3729" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/resources/[base]/caue-financials/server/sv_accounts.lua" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="274" />
+          <option name="caretOffset" value="106" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/resources/[ui]/caue-phone-new/client/cl_bank.lua" />
         </OpenedFileInfo>
       </list>
