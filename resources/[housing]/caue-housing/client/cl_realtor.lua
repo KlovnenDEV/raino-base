@@ -108,8 +108,11 @@ function InteractionPressed(pRadial)
     if finished or isGov() then
         if Housing.currentlyEditing == false then
             local pos = housingInformation
+            print(pos)
+            print(Housing)
 
-            if #(pos.backdoor_coordinates.external-player) <= Housing.ranges.doorEnterRange and max.canHaveBackDoor then
+            if #(pos.backdoor_coordinates.external - player) <= Housing.ranges.doorEnterRange and max.canHaveBackDoor then
+              --print(pos.backdoor_coordinates.external)
                 if not isLocked(propertyID) or Housing.currentOwned[propertyID] ~= nil or Housing.currentKeys[propertyId] ~= nil then
                     if lockdownCheck(propertyID) then
                         if pos.backdoor_coordinates.internal ~= vector3(0.0,0.0,0.0) and pos.backdoor_coordinates.internal ~= nil then

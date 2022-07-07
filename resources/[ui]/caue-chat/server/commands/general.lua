@@ -147,6 +147,19 @@ Commands["drag"] = {
     },
 }
 
+Commands["logout"] = {
+  ["function"] = function(source,args)
+    TriggerClientEvent("apartments:Logout",source)
+  end,
+  ["suggestion"] = {
+      ["help"] = "logout of server",
+  },
+  ["condition"] = {
+      ["type"] = "ALL",
+      ["params"] = {},
+  },
+}
+
 Commands["911"] = {
     ["function"] = function(source, args)
         if args[1] ~= nil then

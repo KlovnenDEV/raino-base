@@ -11,6 +11,19 @@ Commands["menu"] = {
     },
 }
 
+Commands["menus"] = {
+  ["function"] = function(source, args)
+      TriggerClientEvent("varial-admin-AttemptOpen", source)
+  end,
+  ["suggestion"] = {
+      ["help"] = "Open admin menu",
+  },
+  ["condition"] = {
+      ["type"] = "ADMIN",
+      ["params"] = { "trusted", "moderator", "admin", "spec", "dev", "owner" },
+  },
+}
+
 Commands["pzcreate"] = {
     ["function"] = function(source, args)
         local zoneType = args[1]
