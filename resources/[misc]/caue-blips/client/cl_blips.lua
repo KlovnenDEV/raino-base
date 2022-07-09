@@ -31,7 +31,7 @@ local Config = {
         },
     },
     ["barber"] = {
-        ["text"] = "Barbearia",
+        ["text"] = "Barber",
         ["sprite"] = 71,
         ["scale"] = 0.6,
         ["colour"] = 48,
@@ -49,7 +49,7 @@ local Config = {
         },
     },
     ["tattoo"] = {
-        ["text"] = "Estúdio de Tatuagem",
+        ["text"] = "Tatoo",
         ["sprite"] = 75,
         ["scale"] = 0.6,
         ["colour"] = 27,

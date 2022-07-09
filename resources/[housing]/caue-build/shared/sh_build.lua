@@ -36,7 +36,7 @@ Build.Plans = {
 				["useDist"] = 2.0,
 				["generalUse"] = {"",""},
 				["housingMain"] = {"para vêr roupas","raid_clothes:outfits"},
-				["housingSecondary"] = {"para tela de seleção","apartments:Logout"},
+				["housingSecondary"] = {"swap char","apartments:Logout"},
 			},
 			[2] = {
 
@@ -142,7 +142,7 @@ Build.Plans = {
 				["useDist"] = 2.0,
 				["generalUse"] = {"",""},
 				["housingMain"] = {"para vêr roupas","raid_clothes:outfits"},
-				["housingSecondary"] = {"para mudar de character","apartments:Logout"},
+				["housingSecondary"] = {"to swap char","apartments:Logout"},
 			},
 			[2] = {
 				["offset"] = vector3(4.3,-15.95,0.95),
@@ -157,7 +157,7 @@ Build.Plans = {
 				["viewDist"] = 2.0,
 				["useDist"] = 2.0,
 				["generalUse"] = {"",""},
-				["housingMain"] = {"para interagir.","apartments:stash"},
+				["housingMain"] = {"to interact.","apartments:stash"},
 				["housingSecondary"] = {"",""},
 			}
 		},
